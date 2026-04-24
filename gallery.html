@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore Hotel Velora through our curated gallery — rooms, dining, spa, events, and architectural beauty." />
+  <title>Gallery — Hotel Velora</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Filter Bar ---- */
+    .gallery-filter {
+      padding: 0 100px;
+      background: var(--dark-2);
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .gallery-filter-btn {
+      padding: 22px 28px;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey);
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+    .gallery-filter-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .gallery-filter-btn:hover, .gallery-filter-btn.active { color: var(--gold); }
+    .gallery-filter-btn.active::after { width: 100%; }
+
+    /* ---- Gallery Grid ---- */
+    .gallery-section {
+      padding: 60px 100px 120px;
+    }
+
+    .gallery-grid {
+      columns: 3;
+      column-gap: 12px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: block;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      transition: background 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      background: rgba(0,0,0,0.55);
+    }
+
+    .gallery-item-info {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-item-info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item-cat {
+      font-size: 0.58rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .gallery-item-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .gallery-zoom-icon {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      background: rgba(201,169,110,0.9);
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-zoom-icon { opacity: 1; }
+
+    /* Span tall items */
+    .gallery-item.tall img { height: 600px; object-fit: cover; }
+    .gallery-item.medium img { height: 360px; object-fit: cover; }
+    .gallery-item.short img { height: 260px; object-fit: cover; }
+
+    /* ---- Hidden items for filtering ---- */
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    /* ---- CTA Strip ---- */
+    .gallery-cta {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(201,169,110,0.08);
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+      padding: 70px 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+    .gallery-cta-text h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .gallery-cta-text p {
+      font-size: 0.82rem;
+      color: var(--grey);
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 1200px) {
+      .gallery-section { padding: 50px 60px 100px; }
+      .gallery-filter { padding: 0 60px; }
+      .gallery-grid { columns: 2; }
+      .gallery-cta { padding: 60px 60px; flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-section { padding: 36px 24px 80px; }
+      .gallery-filter { padding: 0 24px; }
+      .gallery-grid { columns: 1; }
+      .gallery-cta { padding: 50px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="amenities.html">Amenities</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="nav-cta">Reserve</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a><a href="rooms.html">Rooms</a><a href="amenities.html">Amenities</a>
+    <a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <a href="booking.html">Reserve</a>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1600&q=80')"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-eyebrow">Visual Story</div>
+      <h1>Gallery</h1>
+    </div>
+  </div>
+
+  <!-- Filter -->
+  <div class="gallery-filter">
+    <div class="gallery-filter-btn active" data-filter="all">All</div>
+    <div class="gallery-filter-btn" data-filter="rooms">Rooms & Suites</div>
+    <div class="gallery-filter-btn" data-filter="dining">Dining</div>
+    <div class="gallery-filter-btn" data-filter="spa">Spa & Wellness</div>
+    <div class="gallery-filter-btn" data-filter="pool">Pool & Fitness</div>
+    <div class="gallery-filter-btn" data-filter="events">Events</div>
+    <div class="gallery-filter-btn" data-filter="hotel">Hotel & Architecture</div>
+  </div>
+
+  <!-- Gallery -->
+  <section class="gallery-section">
+    <div class="gallery-grid" id="gallery-grid">
+
+      <div class="gallery-item tall" data-category="rooms" data-caption="The Velora Penthouse — 1,400 sqft of pure luxury">
+        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Velora Penthouse" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Rooms & Suites</div>
+            <div class="gallery-item-title">The Velora Penthouse</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="dining" data-caption="Aurum Restaurant — Michelin-starred culinary excellence">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Aurum Restaurant" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Dining</div>
+            <div class="gallery-item-title">Aurum Restaurant</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item short" data-category="hotel" data-caption="Hotel Velora — Grand Entrance Lobby">
+        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=80" alt="Hotel Lobby" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Hotel & Architecture</div>
+            <div class="gallery-item-title">Grand Lobby</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="spa" data-caption="Velora Spa — A sanctuary of restoration">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80" alt="Velora Spa" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Spa & Wellness</div>
+            <div class="gallery-item-title">Velora Spa Suite</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="rooms" data-caption="Premier Suite — Expansive city view living">
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80" alt="Premier Suite" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Rooms & Suites</div>
+            <div class="gallery-item-title">Premier Suite</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall" data-category="pool" data-caption="Rooftop Infinity Pool — 22nd floor panoramic views">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="Infinity Pool" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Pool & Fitness</div>
+            <div class="gallery-item-title">Rooftop Infinity Pool</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item short" data-category="dining" data-caption="The Velora Bar — Artisan cocktails and curated spirits">
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&q=80" alt="Velora Bar" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Dining</div>
+            <div class="gallery-item-title">The Velora Bar</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="rooms" data-caption="Deluxe King Room — Refined comfort and elegance">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="Deluxe King Room" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Rooms & Suites</div>
+            <div class="gallery-item-title">Deluxe King Room</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="events" data-caption="The Grand Ballroom — 8,000 sqft of timeless grandeur">
+        <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80" alt="Grand Ballroom" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Events</div>
+            <div class="gallery-item-title">The Grand Ballroom</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item short" data-category="hotel" data-caption="Hotel Velora — Architectural detail, Est. 1924">
+        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80" alt="Hotel Architecture" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Hotel & Architecture</div>
+            <div class="gallery-item-title">Heritage Façade</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="dining" data-caption="The Terrace — Rooftop dining under the stars">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="The Terrace" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Dining</div>
+            <div class="gallery-item-title">The Terrace</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall" data-category="rooms" data-caption="Classic Double Room — Timeless design, garden views">
+        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80" alt="Classic Double Room" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Rooms & Suites</div>
+            <div class="gallery-item-title">Classic Double Room</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="spa" data-caption="Spa Treatment Room — Ancient wisdom, modern craft">
+        <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80" alt="Spa Treatment" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Spa & Wellness</div>
+            <div class="gallery-item-title">Treatment Room</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item short" data-category="pool" data-caption="Fitness Centre — State-of-the-art equipment, 24 hours">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80" alt="Fitness Centre" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Pool & Fitness</div>
+            <div class="gallery-item-title">Fitness Centre</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="events" data-caption="Executive Boardroom — Where decisions are made in style">
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80" alt="Executive Boardroom" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Events</div>
+            <div class="gallery-item-title">Executive Boardroom</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium" data-category="hotel" data-caption="Velora Garden Courtyard — A hidden oasis of calm">
+        <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&q=80" alt="Garden Courtyard" loading="lazy" />
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon">+</div>
+          <div class="gallery-item-info">
+            <div class="gallery-item-cat">Hotel & Architecture</div>
+            <div class="gallery-item-title">Garden Courtyard</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <div class="gallery-cta">
+    <div class="gallery-cta-text fade-in-left">
+      <h2>Experience It <em style="font-style:italic; color:var(--gold-light);">In Person</em></h2>
+      <p>No image can do justice to the Velora experience. Reserve your stay and discover it for yourself.</p>
+    </div>
+    <div class="fade-in-right" style="flex-shrink:0;">
+      <a href="booking.html" class="btn btn-gold">
+        <span>Reserve Your Stay</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></div><p>A sanctuary of refined luxury. Where every stay becomes a timeless memory.</p></div>
+      <div class="footer-col"><h4>Hotel</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="rooms.html">Rooms & Suites</a></li><li><a href="amenities.html">Amenities</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="amenities.html#dining">Fine Dining</a></li><li><a href="amenities.html#spa">Velora Spa</a></li><li><a href="amenities.html#events">Events</a></li><li><a href="amenities.html#pool">Infinity Pool</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+1800835672">+1 800 835 672</a></li><li><a href="mailto:reservations@hotelvelora.com">reservations@hotelvelora.com</a></li><li><a href="booking.html">Make a Reservation</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p><p>Privacy Policy · Terms of Service</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Gallery filter
+    document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.gallery-item').forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

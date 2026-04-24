@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Reserve your stay at Hotel Velora — select your dates, choose your room, and personalise your experience." />
+  <title>Reserve — Hotel Velora</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/booking.css" />
+  <style>
+    .booking-page-header {
+      padding: calc(var(--nav-height) + 50px) 100px 40px;
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+    }
+
+    .booking-page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .booking-page-header p {
+      font-size: 0.8rem;
+      color: var(--grey);
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 1200px) {
+      .booking-page-header { padding: calc(var(--nav-height) + 30px) 60px 30px; }
+      .booking-page { padding: calc(var(--nav-height) + 30px) 60px 80px; }
+    }
+
+    @media (max-width: 768px) {
+      .booking-page-header { padding: calc(var(--nav-height) + 20px) 24px 24px; }
+      .booking-page { padding: 30px 24px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="amenities.html">Amenities</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="nav-cta active">Reserve</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a><a href="rooms.html">Rooms</a><a href="amenities.html">Amenities</a>
+    <a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <a href="booking.html">Reserve</a>
+  </div>
+
+  <!-- Page Header -->
+  <div class="booking-page-header">
+    <div class="section-eyebrow">Best Rate Guaranteed</div>
+    <h1>Reserve Your <em style="font-style:italic; color:var(--gold-light);">Stay</em></h1>
+    <p>Complete your reservation in four simple steps. No payment required until arrival.</p>
+  </div>
+
+  <!-- Booking Page -->
+  <div class="booking-page" style="padding-top: 50px;">
+    <div class="booking-layout">
+
+      <!-- Left: Form -->
+      <div class="booking-form-section">
+
+        <!-- Steps -->
+        <div class="booking-steps" role="tablist">
+          <div class="booking-step active" role="tab">
+            <span class="step-number">1</span> Dates & Guests
+          </div>
+          <div class="booking-step" role="tab">
+            <span class="step-number">2</span> Select Room
+          </div>
+          <div class="booking-step" role="tab">
+            <span class="step-number">3</span> Extras
+          </div>
+          <div class="booking-step" role="tab">
+            <span class="step-number">4</span> Your Details
+          </div>
+        </div>
+
+        <!-- ---- STEP 1: Dates & Guests ---- -->
+        <div class="form-panel active" id="panel-1">
+          <div style="margin-top: 40px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 6px;">Choose Your Dates</h3>
+            <p style="font-size: 0.78rem; color: var(--grey); margin-bottom: 36px;">Select your check-in and check-out dates to check room availability.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="check-in">Check-In Date</label>
+                <input type="date" id="check-in" />
+              </div>
+              <div class="form-group">
+                <label for="check-out">Check-Out Date</label>
+                <input type="date" id="check-out" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adults">Adults</label>
+                <select id="adults">
+                  <option value="1">1 Adult</option>
+                  <option value="2" selected>2 Adults</option>
+                  <option value="3">3 Adults</option>
+                  <option value="4">4 Adults</option>
+                  <option value="5">5 Adults</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="children">Children</label>
+                <select id="children">
+                  <option value="0" selected>No Children</option>
+                  <option value="1">1 Child</option>
+                  <option value="2">2 Children</option>
+                  <option value="3">3 Children</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="promo-code">Promo / Member Code <span style="font-size:0.6rem; color:var(--grey); text-transform:none; letter-spacing:0;">(optional)</span></label>
+              <input type="text" id="promo-code" placeholder="Enter code if you have one" />
+              <div class="form-hint">Velora Prestige members receive 15% off all room rates.</div>
+            </div>
+
+            <!-- Availability Info -->
+            <div style="background:var(--dark-2); border:1px solid rgba(201,169,110,0.1); padding:20px 24px; display:flex; gap:16px; align-items:flex-start; margin-top:10px;">
+              <div style="color:var(--gold); font-size:1.2rem; flex-shrink:0; margin-top:2px;">ℹ</div>
+              <div>
+                <div style="font-size:0.72rem; color:var(--light-grey); margin-bottom:4px; letter-spacing:0.5px;">Flexible Cancellation Policy</div>
+                <div style="font-size:0.75rem; color:var(--grey); line-height:1.7;">Cancel free of charge up to 48 hours before your scheduled arrival. Changes to your booking can be made at any time via reservations@hotelvelora.com or by calling +1 800 835 672.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <div></div>
+            <button class="btn btn-gold" data-next-step>
+              <span>Continue to Rooms</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ---- STEP 2: Room Selection ---- -->
+        <div class="form-panel" id="panel-2">
+          <div style="margin-top: 40px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 6px;">Choose Your Room</h3>
+            <p style="font-size: 0.78rem; color: var(--grey); margin-bottom: 36px;">Select the accommodation that best suits your needs. All rooms include complimentary Wi-Fi and access to our fitness centre.</p>
+
+            <div class="room-select-grid" id="room-select-grid">
+              <!-- Populated by booking.js -->
+            </div>
+
+            <div style="margin-top:30px; padding:20px 24px; background:var(--dark-2); border:1px solid rgba(201,169,110,0.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+              <div style="font-size:0.72rem; color:var(--grey);">Need help choosing? Our reservations team is happy to assist.</div>
+              <a href="tel:+1800835672" style="font-size:0.65rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase;">Call +1 800 835 672</a>
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn btn-white" data-prev-step>← Back</button>
+            <button class="btn btn-gold" data-next-step>
+              <span>Add Extras</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ---- STEP 3: Extras ---- -->
+        <div class="form-panel" id="panel-3">
+          <div style="margin-top: 40px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 6px;">Personalise Your Stay</h3>
+            <p style="font-size: 0.78rem; color: var(--grey); margin-bottom: 36px;">Enhance your Velora experience with our curated selection of extras. All additions can also be arranged on arrival with our concierge.</p>
+
+            <div class="extras-grid" id="extras-grid">
+              <!-- Populated by booking.js -->
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px 24px; background: var(--dark-2); border-left: 2px solid var(--gold);">
+              <div style="font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; font-weight: 500;">Velora Bespoke</div>
+              <p style="font-size: 0.78rem; color: var(--grey); line-height: 1.8; margin: 0;">Looking for something not listed? Our concierge team can arrange virtually anything — from in-suite private dining to personalised city tours. Contact us at <a href="mailto:concierge@hotelvelora.com" style="color:var(--gold);">concierge@hotelvelora.com</a> to discuss your bespoke request.</p>
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn btn-white" data-prev-step>← Back</button>
+            <button class="btn btn-gold" data-next-step>
+              <span>Enter Your Details</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ---- STEP 4: Guest Details ---- -->
+        <div class="form-panel" id="panel-4">
+          <div style="margin-top: 40px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 6px;">Your Details</h3>
+            <p style="font-size: 0.78rem; color: var(--grey); margin-bottom: 36px;">Please provide your details to complete the reservation. No payment is required at this stage.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first-name">First Name *</label>
+                <input type="text" id="first-name" placeholder="Alexandra" />
+              </div>
+              <div class="form-group">
+                <label for="last-name">Last Name *</label>
+                <input type="text" id="last-name" placeholder="Chen" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" placeholder="your@email.com" />
+              <div class="form-hint">Your confirmation will be sent to this address.</div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="+1 000 000 0000" />
+              </div>
+              <div class="form-group">
+                <label for="country">Country of Residence</label>
+                <select id="country">
+                  <option value="">Select country</option>
+                  <option value="US">United States</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="CA">Canada</option>
+                  <option value="AU">Australia</option>
+                  <option value="FR">France</option>
+                  <option value="DE">Germany</option>
+                  <option value="IT">Italy</option>
+                  <option value="ES">Spain</option>
+                  <option value="NG">Nigeria</option>
+                  <option value="ZA">South Africa</option>
+                  <option value="AE">United Arab Emirates</option>
+                  <option value="SG">Singapore</option>
+                  <option value="JP">Japan</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="special-requests">Special Requests <span style="font-size:0.6rem; color:var(--grey); text-transform:none; letter-spacing:0;">(optional)</span></label>
+              <textarea id="special-requests" placeholder="Dietary requirements, accessibility needs, room preferences, celebrations, or any other requests..."></textarea>
+              <div class="form-hint">We will do our utmost to accommodate all requests, though cannot guarantee fulfilment prior to confirmation.</div>
+            </div>
+
+            <!-- Terms -->
+            <div style="display:flex; gap:14px; align-items:flex-start; padding:20px; background:var(--dark-2); border:1px solid rgba(255,255,255,0.05); margin-top:10px;">
+              <input type="checkbox" id="terms" style="margin-top:3px; accent-color:var(--gold); width:16px; height:16px; flex-shrink:0;" />
+              <label for="terms" style="font-size:0.75rem; color:var(--grey); line-height:1.7; cursor:pointer;">
+                I agree to Hotel Velora's <a href="#" style="color:var(--gold);">Terms & Conditions</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>. I understand that no payment is required at this time, and that my reservation is subject to availability confirmation.
+              </label>
+            </div>
+
+            <!-- Trust Badges -->
+            <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:30px; padding-top:30px; border-top:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.72rem; color:var(--grey);">
+                <span style="color:var(--gold); font-size:1.1rem;">🔒</span> Secure Reservation
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.72rem; color:var(--grey);">
+                <span style="color:var(--gold); font-size:1.1rem;">✓</span> Best Rate Guaranteed
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.72rem; color:var(--grey);">
+                <span style="color:var(--gold); font-size:1.1rem;">↩</span> Free Cancellation
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.72rem; color:var(--grey);">
+                <span style="color:var(--gold); font-size:1.1rem;">💳</span> No Card Required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn btn-white" data-prev-step>← Back</button>
+            <button class="btn btn-gold" id="submit-booking">
+              <span>Complete Reservation</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Booking Summary -->
+      <div class="booking-summary">
+        <div class="summary-card">
+
+          <div class="summary-header">
+            <h3>Booking Summary</h3>
+            <div class="summary-dates">
+              <div class="summary-date">
+                <div class="summary-date-label">Check In</div>
+                <div class="summary-date-value" id="summary-checkin">—</div>
+              </div>
+              <div class="summary-date">
+                <div class="summary-date-label">Check Out</div>
+                <div class="summary-date-value" id="summary-checkout">—</div>
+              </div>
+            </div>
+            <div class="summary-nights" id="summary-nights" style="margin-top: 16px;">Select your dates above</div>
+          </div>
+
+          <div class="summary-body">
+            <div class="summary-room">
+              <div class="summary-room-name" id="summary-room-name">No room selected</div>
+              <div class="summary-room-type" id="summary-room-type" style="font-size:0.65rem; letter-spacing:2px; color:var(--grey); text-transform:uppercase; margin-top:4px;"></div>
+            </div>
+
+            <div class="summary-line">
+              <span>Room Cost</span>
+              <span id="summary-room-cost">—</span>
+            </div>
+
+            <div id="summary-extras-list">
+              <div class="summary-line extras-line"><span>No extras selected</span><span>—</span></div>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-total">
+              <div>
+                <div class="summary-total-label">Total</div>
+                <div class="summary-total-nights" id="summary-total-nights"></div>
+              </div>
+              <div class="summary-total-amount" id="summary-total">$0</div>
+            </div>
+
+            <div class="summary-note">
+              All rates are in USD and include applicable taxes and service charges. No payment is required to complete your reservation — we'll simply hold your room. <a href="contact.html">Contact us</a> with any questions.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Help Box -->
+        <div style="margin-top:20px; padding:24px; background:var(--dark-2); border:1px solid rgba(201,169,110,0.08);">
+          <div style="font-size:0.62rem; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:12px; font-weight:500;">Need Help?</div>
+          <p style="font-size:0.76rem; color:var(--grey); line-height:1.8; margin-bottom:14px;">Our reservations team is available 24 hours a day to assist with your booking.</p>
+          <a href="tel:+1800835672" style="font-size:0.8rem; color:var(--white); display:flex; align-items:center; gap:8px;">
+            <span style="color:var(--gold);">📞</span> +1 800 835 672
+          </a>
+          <a href="mailto:reservations@hotelvelora.com" style="font-size:0.75rem; color:var(--grey); display:block; margin-top:8px;">
+            reservations@hotelvelora.com
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></div><p>A sanctuary of refined luxury. Where every stay becomes a timeless memory.</p></div>
+      <div class="footer-col"><h4>Hotel</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="rooms.html">Rooms & Suites</a></li><li><a href="amenities.html">Amenities</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="amenities.html#dining">Fine Dining</a></li><li><a href="amenities.html#spa">Velora Spa</a></li><li><a href="amenities.html#events">Events</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+1800835672">+1 800 835 672</a></li><li><a href="mailto:reservations@hotelvelora.com">reservations@hotelvelora.com</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

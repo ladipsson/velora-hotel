@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hotel Velora — A sanctuary of refined luxury. Experience world-class hospitality, exquisite dining, and timeless elegance." />
+  <title>Hotel Velora — Luxury Redefined</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/booking.css" />
+  <style>
+    /* ---- Hero ---- */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1800&q=85') center/cover no-repeat;
+      transform: scale(1.1);
+      transform-origin: center;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.55) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 100px;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeSlideUp 0.8s ease 0.3s forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 50px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s ease 0.5s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.5px;
+      line-height: 1.9;
+      max-width: 480px;
+      margin-bottom: 50px;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s ease 0.7s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s ease 0.9s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font-size: 0.58rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeSlideUp 1s ease 1.2s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.5; transform: scaleY(0.7); }
+    }
+
+    /* ---- Booking Bar ---- */
+    .hero-booking {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      z-index: 3;
+      padding: 0 100px;
+      transform: translateY(50%);
+    }
+
+    /* ---- Stats ---- */
+    .stats-section {
+      padding: 120px 100px 80px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: rgba(201,169,110,0.08);
+    }
+
+    .stat-item {
+      background: var(--dark);
+      padding: 50px 40px;
+      text-align: center;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .stat-item:hover { background: var(--dark-2); }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-suffix {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey);
+      font-weight: 500;
+    }
+
+    /* ---- About Section ---- */
+    .about-section {
+      padding: 120px 100px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+
+    .about-image-main {
+      width: 100%;
+      height: 620px;
+      object-fit: cover;
+    }
+
+    .about-image-accent {
+      position: absolute;
+      width: 280px;
+      height: 220px;
+      object-fit: cover;
+      bottom: -40px;
+      right: -40px;
+      border: 6px solid var(--dark);
+    }
+
+    .about-award {
+      position: absolute;
+      top: 40px;
+      right: -30px;
+      background: var(--gold);
+      color: var(--black);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-display);
+    }
+
+    .about-award-num {
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .about-award-label {
+      font-size: 0.55rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+      font-weight: 500;
+      margin-top: 4px;
+      padding: 0 8px;
+    }
+
+    .about-text { padding-right: 20px; }
+
+    .about-quote {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-light);
+      line-height: 1.6;
+      margin: 30px 0;
+      padding-left: 24px;
+      border-left: 2px solid var(--gold-dark);
+    }
+
+    /* ---- Rooms Preview ---- */
+    .rooms-section {
+      padding: 120px 100px;
+      background: var(--dark);
+    }
+
+    .rooms-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 20px;
+    }
+
+    .room-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .room-card-featured {
+      grid-row: span 2;
+    }
+
+    .room-card-img {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .room-card-featured .room-card-img {
+      min-height: 640px;
+    }
+
+    .room-card:hover .room-card-img { transform: scale(1.06); }
+
+    .room-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 36px;
+      transition: var(--transition);
+    }
+
+    .room-card:hover .room-card-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 70%);
+    }
+
+    .room-card-type {
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .room-card-name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .room-card-featured .room-card-name { font-size: 2.5rem; }
+
+    .room-card-price {
+      font-size: 0.75rem;
+      color: var(--light-grey);
+      letter-spacing: 1px;
+    }
+
+    .room-card-cta {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+      margin-top: 20px;
+    }
+
+    .room-card:hover .room-card-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- Amenities Highlight ---- */
+    .amenities-section {
+      padding: 120px 100px;
+    }
+
+    .amenities-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 80px;
+    }
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .amenity-item {
+      background: var(--dark);
+      padding: 50px 40px;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .amenity-item:hover {
+      background: var(--dark-2);
+      border-color: rgba(201,169,110,0.15);
+    }
+
+    .amenity-icon {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .amenity-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .amenity-desc {
+      font-size: 0.78rem;
+      color: var(--grey);
+      letter-spacing: 0.5px;
+      line-height: 1.8;
+    }
+
+    /* ---- Testimonials ---- */
+    .testimonials-section {
+      padding: 120px 100px;
+      background: var(--dark);
+      text-align: center;
+    }
+
+    .testimonial-slider {
+      position: relative;
+      max-width: 800px;
+      margin: 60px auto 0;
+    }
+
+    .testimonial-slide {
+      display: none;
+      animation: fadeSlideUp 0.5s ease;
+    }
+
+    .testimonial-slide.active { display: block; }
+
+    .testimonial-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+
+    .testimonial-quote::before {
+      content: '"';
+      font-size: 5rem;
+      color: var(--gold-dark);
+      line-height: 0;
+      vertical-align: -1.5rem;
+      margin-right: 8px;
+      font-family: var(--font-display);
+    }
+
+    .testimonial-author { margin-top: 30px; }
+
+    .testimonial-name {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .testimonial-origin {
+      font-size: 0.7rem;
+      color: var(--grey);
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 50px;
+    }
+
+    .slider-dot {
+      width: 6px; height: 6px;
+      background: var(--mid);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .slider-dot.active {
+      background: var(--gold);
+      width: 30px;
+      border-radius: 3px;
+    }
+
+    /* ---- CTA Section ---- */
+    .cta-section {
+      position: relative;
+      padding: 180px 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=80') center/cover no-repeat;
+    }
+
+    .cta-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .cta-content p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.9;
+      margin-bottom: 50px;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 1200px) {
+      .hero-content { padding: 0 60px; }
+      .hero-booking { padding: 0 60px; }
+      .stats-section, .about-section, .rooms-section, .amenities-section, .testimonials-section, .cta-section { padding: 80px 60px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 60px; }
+      .about-image-accent { display: none; }
+      .about-award { right: 20px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-content { padding: 0 24px; }
+      .hero-booking { padding: 0 24px; transform: none; position: relative; margin-top: 40px; }
+      .stats-section, .about-section, .rooms-section, .amenities-section, .testimonials-section, .cta-section { padding: 60px 24px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .rooms-grid { grid-template-columns: 1fr; }
+      .room-card-featured { grid-row: auto; }
+      .amenities-grid { grid-template-columns: 1fr; }
+      .rooms-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+      .hero-scroll { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar transparent" data-transparent>
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-name">Velora</span>
+        <span class="logo-tagline">Est. 1924 · Luxury Collection</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="amenities.html">Amenities</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="nav-cta">Reserve</a></li>
+      </ul>
+      <div class="hamburger" aria-label="Menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="amenities.html">Amenities</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="booking.html">Reserve</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Five-Star Luxury · Est. 1924</div>
+      <h1>Where <em>Luxury</em><br>Meets Legacy</h1>
+      <p class="hero-desc">
+        Nestled in the heart of the city, Hotel Velora offers an unrivalled experience of timeless elegance, world-class service, and unforgettable moments.
+      </p>
+      <div class="hero-actions">
+        <a href="booking.html" class="btn btn-gold">
+          <span>Reserve a Room</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="rooms.html" class="btn btn-white">Explore Rooms</a>
+      </div>
+    </div>
+
+    <!-- Booking Bar -->
+    <div class="hero-booking">
+      <div class="booking-bar" id="homepage-booking">
+        <div class="booking-field">
+          <label for="hp-checkin">Check In</label>
+          <input type="date" id="hp-checkin" />
+        </div>
+        <div class="booking-field">
+          <label for="hp-checkout">Check Out</label>
+          <input type="date" id="hp-checkout" />
+        </div>
+        <div class="booking-field">
+          <label for="hp-guests">Guests</label>
+          <select id="hp-guests">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5+ Guests</option>
+          </select>
+        </div>
+        <div class="booking-field">
+          <label for="hp-room">Room Type</label>
+          <select id="hp-room">
+            <option value="">Any Type</option>
+            <option value="classic">Classic</option>
+            <option value="deluxe">Deluxe</option>
+            <option value="suite">Suite</option>
+            <option value="penthouse">Penthouse</option>
+          </select>
+        </div>
+        <button class="btn btn-gold" data-booking-submit>
+          <span>Check Availability</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <div class="stat-number"><span data-count="100">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Luxury Rooms</div>
+      </div>
+      <div class="stat-item fade-in" data-delay="2">
+        <div class="stat-number"><span data-count="98">0</span><span class="stat-suffix">%</span></div>
+        <div class="stat-label">Guest Satisfaction</div>
+      </div>
+      <div class="stat-item fade-in" data-delay="3">
+        <div class="stat-number"><span data-count="24">0</span><span class="stat-suffix">/7</span></div>
+        <div class="stat-label">Concierge Service</div>
+      </div>
+      <div class="stat-item fade-in" data-delay="4">
+        <div class="stat-number"><span data-count="12">0</span><span class="stat-suffix"></span></div>
+        <div class="stat-label">Awards Won</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- About -->
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-image-wrap fade-in-left">
+        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&q=80" alt="Hotel Velora Grand Lobby" class="about-image-main" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500&q=80" alt="Hotel Velora Detail" class="about-image-accent" loading="lazy" />
+        <div class="about-award">
+          <span class="about-award-num">5★</span>
+          <span class="about-award-label">Forbes Travel Guide</span>
+        </div>
+      </div>
+      <div class="about-text fade-in-right">
+        <div class="section-eyebrow">Our Story</div>
+        <h2 class="section-title">A Century of<br><em>Extraordinary</em> Hospitality</h2>
+        <div class="gold-line"></div>
+        <p class="section-subtitle">
+          Since 1924, Hotel Velora has stood as a testament to refined hospitality. Our legacy is built on meticulous attention to detail, passionate service, and spaces that inspire wonder.
+        </p>
+        <blockquote class="about-quote">
+          "We don't simply offer accommodation — we craft memories that endure a lifetime."
+        </blockquote>
+        <p class="section-subtitle">
+          From our hand-curated art collection to our Michelin-starred restaurant, every element of Velora is designed to exceed expectation.
+        </p>
+        <div class="mt-40">
+          <a href="about.html" class="btn btn-outline">
+            <span>Discover Our Story</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Rooms Preview -->
+  <section class="rooms-section">
+    <div class="rooms-header">
+      <div>
+        <div class="section-eyebrow">Our Accommodations</div>
+        <h2 class="section-title">Spaces Crafted<br>for <em>Discerning</em> Guests</h2>
+      </div>
+      <a href="rooms.html" class="btn btn-outline">View All Rooms</a>
+    </div>
+
+    <div class="rooms-grid">
+      <div class="room-card room-card-featured fade-in">
+        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&q=80" alt="Velora Penthouse" class="room-card-img" loading="lazy" />
+        <div class="room-card-overlay">
+          <div class="room-card-type">Penthouse Suite</div>
+          <div class="room-card-name">The Velora Penthouse</div>
+          <div class="room-card-price">From $1,200 / night</div>
+          <a href="room-detail.html?id=velora-penthouse" class="btn btn-gold room-card-cta">
+            <span>Reserve Now</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="room-card fade-in" data-delay="2">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Deluxe King Room" class="room-card-img" loading="lazy" />
+        <div class="room-card-overlay">
+          <div class="room-card-type">Deluxe Room</div>
+          <div class="room-card-name">Deluxe King Room</div>
+          <div class="room-card-price">From $320 / night</div>
+          <a href="room-detail.html?id=deluxe-king" class="btn btn-gold room-card-cta">
+            <span>Reserve Now</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="room-card fade-in" data-delay="3">
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=700&q=80" alt="Premier Suite" class="room-card-img" loading="lazy" />
+        <div class="room-card-overlay">
+          <div class="room-card-type">Suite</div>
+          <div class="room-card-name">Premier Suite</div>
+          <div class="room-card-price">From $520 / night</div>
+          <a href="room-detail.html?id=premier-suite" class="btn btn-gold room-card-cta">
+            <span>Reserve Now</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="amenities-section">
+    <div class="amenities-header fade-in">
+      <div class="section-eyebrow centered">World-Class Facilities</div>
+      <h2 class="section-title">Every Comfort,<br><em>Thoughtfully</em> Considered</h2>
+      <div class="gold-line centered"></div>
+    </div>
+
+    <div class="amenities-grid">
+      <div class="amenity-item fade-in">
+        <span class="amenity-icon">🍽️</span>
+        <div class="amenity-name">Fine Dining</div>
+        <p class="amenity-desc">Our Michelin-starred Aurum Restaurant delivers an unparalleled culinary journey through seasonal, locally-sourced ingredients.</p>
+      </div>
+      <div class="amenity-item fade-in" data-delay="2">
+        <span class="amenity-icon">💆</span>
+        <div class="amenity-name">Velora Spa</div>
+        <p class="amenity-desc">A sanctuary of wellness spanning 3,000 sqft, offering bespoke treatments, hydrotherapy, and premium beauty rituals.</p>
+      </div>
+      <div class="amenity-item fade-in" data-delay="3">
+        <span class="amenity-icon">🏊</span>
+        <div class="amenity-name">Infinity Pool</div>
+        <p class="amenity-desc">Our rooftop infinity pool offers breathtaking city panoramas and a serene escape above the urban landscape.</p>
+      </div>
+      <div class="amenity-item fade-in" data-delay="4">
+        <span class="amenity-icon">🏋️</span>
+        <div class="amenity-name">Fitness Centre</div>
+        <p class="amenity-desc">A state-of-the-art facility with cutting-edge equipment, personal trainers, and dedicated yoga and pilates studios.</p>
+      </div>
+      <div class="amenity-item fade-in" data-delay="5">
+        <span class="amenity-icon">🎭</span>
+        <div class="amenity-name">Event Spaces</div>
+        <p class="amenity-desc">Seven distinct event spaces, from intimate boardrooms to our Grand Ballroom accommodating 600 guests in splendour.</p>
+      </div>
+      <div class="amenity-item fade-in" data-delay="6">
+        <span class="amenity-icon">🚗</span>
+        <div class="amenity-name">Concierge & Valet</div>
+        <p class="amenity-desc">A dedicated 24-hour concierge team and valet service, ensuring every request is fulfilled with precision and grace.</p>
+      </div>
+    </div>
+
+    <div class="text-center mt-60">
+      <a href="amenities.html" class="btn btn-outline">Explore All Amenities</a>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="section-eyebrow centered fade-in">Guest Experiences</div>
+    <h2 class="section-title fade-in" data-delay="2">Words From Our<br><em>Cherished</em> Guests</h2>
+
+    <div class="testimonial-slider" role="region" aria-label="Guest testimonials">
+      <div class="testimonial-slide active">
+        <div class="testimonial-quote">
+          From the moment we arrived, every detail was considered. The penthouse suite was beyond anything I had imagined — a flawless celebration of luxury.
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Alexandra Chen</div>
+          <div class="testimonial-origin">New York, USA</div>
+        </div>
+      </div>
+      <div class="testimonial-slide">
+        <div class="testimonial-quote">
+          Hotel Velora redefined what a five-star experience means to me. The staff anticipate your every need before you even realise it yourself.
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">James Harrington</div>
+          <div class="testimonial-origin">London, UK</div>
+        </div>
+      </div>
+      <div class="testimonial-slide">
+        <div class="testimonial-quote">
+          The spa, the dining, the rooms — each a masterpiece in its own right. This is not just a hotel; it is an entire world unto itself.
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Isabelle Moreau</div>
+          <div class="testimonial-origin">Paris, France</div>
+        </div>
+      </div>
+      <div class="slider-dots">
+        <div class="slider-dot active"></div>
+        <div class="slider-dot"></div>
+        <div class="slider-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-content fade-in">
+      <div class="section-eyebrow centered">Begin Your Journey</div>
+      <h2>Reserve Your Stay<br>at <em>Hotel Velora</em></h2>
+      <p>Experience unparalleled luxury in the heart of the city. Our team is ready to curate a personalised escape tailored exclusively for you.</p>
+      <a href="booking.html" class="btn btn-gold">
+        <span>Book Your Suite</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-name">Velora</span>
+          <span class="logo-tagline">Est. 1924 · Luxury Collection</span>
+        </div>
+        <p>A sanctuary of refined luxury in the heart of the city. Where every stay becomes a timeless memory.</p>
+        <div class="social-links" style="margin-top:24px;">
+          <a href="#" aria-label="Instagram">Ig</a>
+          <a href="#" aria-label="Facebook">Fb</a>
+          <a href="#" aria-label="Twitter">Tw</a>
+          <a href="#" aria-label="LinkedIn">Li</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Hotel</h4>
+        <ul>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="rooms.html">Rooms & Suites</a></li>
+          <li><a href="amenities.html">Amenities</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="amenities.html#dining">Fine Dining</a></li>
+          <li><a href="amenities.html#spa">Velora Spa</a></li>
+          <li><a href="amenities.html#events">Events</a></li>
+          <li><a href="amenities.html#pool">Infinity Pool</a></li>
+          <li><a href="amenities.html#fitness">Fitness</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+1800835672">+1 800 835 672</a></li>
+          <li><a href="mailto:reservations@hotelvelora.com">reservations@hotelvelora.com</a></li>
+          <li><a href="contact.html">1 Velora Boulevard</a></li>
+          <li><a href="booking.html">Make a Reservation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p>
+      <p>Privacy Policy · Terms of Service · Cookie Policy</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

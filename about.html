@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The story of Hotel Velora — a century of extraordinary hospitality, timeless elegance, and a passion for the finest in luxury living." />
+  <title>About — Hotel Velora</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Story Section ---- */
+    .story-section {
+      padding: 100px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .story-text p {
+      font-size: 0.85rem;
+      color: var(--grey);
+      line-height: 2;
+      margin-bottom: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .story-pullquote {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-light);
+      line-height: 1.55;
+      padding: 30px 0 30px 28px;
+      border-left: 2px solid var(--gold-dark);
+      margin: 36px 0;
+    }
+
+    .story-image-stack {
+      position: relative;
+    }
+
+    .story-img-main {
+      width: 100%;
+      height: 580px;
+      object-fit: cover;
+    }
+
+    .story-img-inset {
+      position: absolute;
+      width: 240px;
+      height: 180px;
+      object-fit: cover;
+      bottom: -30px;
+      left: -30px;
+      border: 5px solid var(--dark);
+    }
+
+    .story-badge {
+      position: absolute;
+      top: 30px;
+      left: -30px;
+      background: var(--gold);
+      color: var(--black);
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .story-badge-year {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .story-badge-label {
+      font-size: 0.52rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    /* ---- Timeline ---- */
+    .timeline-section {
+      padding: 100px 100px;
+      background: var(--dark);
+    }
+
+    .timeline-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 80px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.3), transparent);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      margin-bottom: 60px;
+      align-items: start;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; text-align: right; padding-right: 40px; }
+    .timeline-item:nth-child(odd) .timeline-empty { grid-column: 3; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: 3; text-align: left; padding-left: 40px; }
+    .timeline-item:nth-child(even) .timeline-empty { grid-column: 1; }
+
+    .timeline-dot {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding-top: 4px;
+    }
+
+    .timeline-dot-circle {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      background: var(--dark);
+      flex-shrink: 0;
+    }
+
+    .timeline-year {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .timeline-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .timeline-content p {
+      font-size: 0.78rem;
+      color: var(--grey);
+      line-height: 1.8;
+    }
+
+    /* ---- Team Section ---- */
+    .team-section {
+      padding: 100px 100px;
+    }
+
+    .team-header {
+      max-width: 600px;
+      margin-bottom: 70px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .team-card {
+      text-align: center;
+    }
+
+    .team-img-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .team-img-wrap img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.7s ease;
+      filter: grayscale(20%);
+    }
+
+    .team-card:hover .team-img-wrap img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+    }
+
+    .team-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+    }
+
+    .team-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-size: 0.62rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .team-bio {
+      font-size: 0.75rem;
+      color: var(--grey);
+      line-height: 1.8;
+      margin-top: 12px;
+    }
+
+    /* ---- Awards Section ---- */
+    .awards-section {
+      padding: 100px 100px;
+      background: var(--dark-2);
+      text-align: center;
+    }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      background: rgba(201,169,110,0.06);
+      margin-top: 60px;
+    }
+
+    .award-item {
+      background: var(--dark-2);
+      padding: 50px 30px;
+      transition: var(--transition);
+    }
+
+    .award-item:hover {
+      background: var(--dark-3);
+    }
+
+    .award-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .award-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .award-org {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .award-year {
+      font-size: 0.7rem;
+      color: var(--grey);
+      margin-top: 8px;
+    }
+
+    /* ---- Values Section ---- */
+    .values-section {
+      padding: 0;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .value-block {
+      padding: 80px 60px;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      transition: var(--transition);
+    }
+
+    .value-block:last-child { border-right: none; }
+    .value-block:hover { background: var(--dark-2); }
+
+    .value-number {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 300;
+      color: rgba(201,169,110,0.12);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .value-desc {
+      font-size: 0.8rem;
+      color: var(--grey);
+      line-height: 1.9;
+    }
+
+    /* ---- Full-width image ---- */
+    .full-img-section {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .full-img-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .full-img-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+    }
+
+    .full-img-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .full-img-overlay h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      .story-section { padding: 70px 60px; gap: 60px; }
+      .timeline-section, .team-section, .awards-section { padding: 70px 60px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .awards-grid { grid-template-columns: repeat(3, 1fr); }
+      .values-section .values-grid { grid-template-columns: 1fr; }
+      .value-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    }
+
+    @media (max-width: 768px) {
+      .story-section { padding: 50px 24px; grid-template-columns: 1fr; gap: 50px; }
+      .story-img-inset, .story-badge { display: none; }
+      .timeline-section, .team-section, .awards-section { padding: 60px 24px; }
+      .timeline::before { left: 20px; }
+      .timeline-item { grid-template-columns: 40px 1fr; }
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content { grid-column: 2; text-align: left; padding-left: 20px; padding-right: 0; }
+      .timeline-item:nth-child(odd) .timeline-empty,
+      .timeline-item:nth-child(even) .timeline-empty { display: none; }
+      .timeline-dot { grid-column: 1; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .awards-grid { grid-template-columns: repeat(2, 1fr); }
+      .value-block { padding: 50px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="amenities.html">Amenities</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="nav-cta">Reserve</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a><a href="rooms.html">Rooms</a><a href="amenities.html">Amenities</a>
+    <a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <a href="booking.html">Reserve</a>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&q=80')"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-eyebrow">Est. 1924</div>
+      <h1>Our Story</h1>
+    </div>
+  </div>
+
+  <!-- Story -->
+  <section class="story-section">
+    <div class="story-image-stack fade-in-left">
+      <img class="story-img-main" src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&q=80" alt="Hotel Velora Lobby" loading="lazy" />
+      <img class="story-img-inset" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&q=80" alt="Hotel Detail" loading="lazy" />
+      <div class="story-badge">
+        <span class="story-badge-year">100</span>
+        <span class="story-badge-label">Years of Excellence</span>
+      </div>
+    </div>
+    <div class="story-text fade-in-right">
+      <div class="section-eyebrow">A Century of Luxury</div>
+      <h2 class="section-title">Where Every Guest<br>Becomes a <em>Legend</em></h2>
+      <div class="gold-line"></div>
+      <p>Hotel Velora was born in 1924 from a singular vision: to create not merely a place to sleep, but a world apart — a refuge of extraordinary beauty and impeccable grace in the heart of the city.</p>
+      <blockquote class="story-pullquote">"We are not in the business of accommodation. We are in the business of memory."<br><span style="font-size:0.75rem; font-family:var(--font-body); letter-spacing:2px; color:var(--grey); font-style:normal;">— Edmond Velora, Founder</span></blockquote>
+      <p>Founded by Swiss hotelier Edmond Velora, the hotel was constructed over three years using the finest Italian marble, hand-crafted fixtures, and materials sourced from across five continents. Its original Art Deco façade remains one of the city's most celebrated architectural landmarks.</p>
+      <p>Through nearly a century of history — weathering wars, economic shifts, and generational change — Hotel Velora has never wavered from its founding promise: that every guest, without exception, deserves to feel like the most important person in the world.</p>
+      <div class="mt-40">
+        <a href="gallery.html" class="btn btn-outline">
+          <span>Explore Our Gallery</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline-section">
+    <div class="timeline-header fade-in">
+      <div class="section-eyebrow centered">Our Heritage</div>
+      <h2 class="section-title">A Century of<br><em>Defining</em> Moments</h2>
+      <div class="gold-line centered"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item fade-in">
+        <div class="timeline-content">
+          <h3>Grand Opening</h3>
+          <p>Edmond Velora opens the hotel on 14th April, 1924. The inaugural dinner is attended by royalty, diplomats, and the city's most distinguished citizens.</p>
+        </div>
+        <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-year">1924</div></div>
+        <div class="timeline-empty"></div>
+      </div>
+      <div class="timeline-item fade-in" data-delay="2">
+        <div class="timeline-empty"></div>
+        <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-year">1938</div></div>
+        <div class="timeline-content">
+          <h3>The Aurum Opens</h3>
+          <p>Chef Pierre Fontaine opens the Aurum Restaurant to immediate acclaim, earning its first Michelin star within eighteen months of opening.</p>
+        </div>
+      </div>
+      <div class="timeline-item fade-in" data-delay="3">
+        <div class="timeline-content">
+          <h3>The Velora Wing</h3>
+          <p>A new wing adds 40 rooms and the legendary Penthouse suite, designed by celebrated architect Renata Morelli in a seamless blend of heritage and modernity.</p>
+        </div>
+        <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-year">1962</div></div>
+        <div class="timeline-empty"></div>
+      </div>
+      <div class="timeline-item fade-in" data-delay="4">
+        <div class="timeline-empty"></div>
+        <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-year">1985</div></div>
+        <div class="timeline-content">
+          <h3>Forbes Five Stars</h3>
+          <p>Hotel Velora receives its Forbes Travel Guide Five-Star rating for the first time — a distinction it has held every year since without interruption.</p>
+        </div>
+      </div>
+      <div class="timeline-item fade-in" data-delay="5">
+        <div class="timeline-content">
+          <h3>Spa & Rooftop Pool</h3>
+          <p>A landmark renovation introduces the Velora Spa and rooftop infinity pool on the 22nd floor, redefining urban luxury hospitality worldwide.</p>
+        </div>
+        <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-year">2007</div></div>
+        <div class="timeline-empty"></div>
+      </div>
+      <div class="timeline-item fade-in" data-delay="6">
+        <div class="timeline-empty"></div>
+        <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-year">2024</div></div>
+        <div class="timeline-content">
+          <h3>Centenary & Renewal</h3>
+          <p>Hotel Velora celebrates its centennial year with a comprehensive renovation, preserving all original heritage features while introducing contemporary luxury throughout.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section">
+    <div class="values-grid">
+      <div class="value-block fade-in">
+        <div class="value-number">01</div>
+        <div class="value-title">Authentic <em style="font-style:italic; color:var(--gold-light);">Excellence</em></div>
+        <p class="value-desc">We hold ourselves to a standard that transcends industry benchmarks. Every detail, every interaction, every moment is an opportunity to exceed expectation — and we seize it without fail.</p>
+      </div>
+      <div class="value-block fade-in" data-delay="2">
+        <div class="value-number">02</div>
+        <div class="value-title">Genuine <em style="font-style:italic; color:var(--gold-light);">Connection</em></div>
+        <p class="value-desc">Luxury is not merely material — it is the feeling of being truly seen, heard, and valued. We train our team not to serve, but to connect with every guest as an individual.</p>
+      </div>
+      <div class="value-block fade-in" data-delay="3">
+        <div class="value-number">03</div>
+        <div class="value-title">Enduring <em style="font-style:italic; color:var(--gold-light);">Legacy</em></div>
+        <p class="value-desc">We are stewards of a hundred-year legacy. Every decision is made with reverence for what came before and responsibility for what comes after — in hospitality, community, and sustainability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image -->
+  <div class="full-img-section">
+    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=80" alt="Hotel Velora at dusk" loading="lazy" />
+    <div class="full-img-overlay">
+      <div class="section-eyebrow centered" style="justify-content:center;">A Timeless Sanctuary</div>
+      <h2>One Hundred Years of<br><em style="font-style:italic; color:var(--gold-light);">Extraordinary</em></h2>
+      <a href="booking.html" class="btn btn-gold">
+        <span>Reserve Your Experience</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <section class="team-section">
+    <div class="team-header fade-in">
+      <div class="section-eyebrow">The People Behind Velora</div>
+      <h2 class="section-title">Leadership with<br><em>Passion</em> & Purpose</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card fade-in">
+        <div class="team-img-wrap">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=80" alt="General Manager" loading="lazy" />
+          <div class="team-img-overlay"></div>
+        </div>
+        <div class="team-name">Sebastian Hartmann</div>
+        <div class="team-role">General Manager</div>
+        <p class="team-bio">25 years in luxury hospitality across four continents. Sebastian joined Velora in 2015 and has led the hotel to its highest-ever guest satisfaction scores.</p>
+      </div>
+      <div class="team-card fade-in" data-delay="2">
+        <div class="team-img-wrap">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&q=80" alt="Head Chef" loading="lazy" />
+          <div class="team-img-overlay"></div>
+        </div>
+        <div class="team-name">Élise Moreau</div>
+        <div class="team-role">Executive Chef, Aurum</div>
+        <p class="team-bio">Two Michelin stars at 34. Élise brings her Lyonnaise heritage and global culinary vision to the Aurum, redefining the restaurant with each new season.</p>
+      </div>
+      <div class="team-card fade-in" data-delay="3">
+        <div class="team-img-wrap">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&q=80" alt="Spa Director" loading="lazy" />
+          <div class="team-img-overlay"></div>
+        </div>
+        <div class="team-name">Kenji Nakamura</div>
+        <div class="team-role">Spa & Wellness Director</div>
+        <p class="team-bio">Trained in traditional Japanese wellness and Western therapies, Kenji has shaped the Velora Spa into one of the world's most celebrated urban retreats.</p>
+      </div>
+      <div class="team-card fade-in" data-delay="4">
+        <div class="team-img-wrap">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80" alt="Events Director" loading="lazy" />
+          <div class="team-img-overlay"></div>
+        </div>
+        <div class="team-name">Amara Osei</div>
+        <div class="team-role">Director of Events</div>
+        <p class="team-bio">With an eye for the theatrical and a gift for detail, Amara has produced some of the city's most talked-about galas, weddings, and corporate retreats.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section class="awards-section">
+    <div class="section-eyebrow centered fade-in">Recognition</div>
+    <h2 class="section-title fade-in" data-delay="2">Honoured by the<br><em>World's Finest</em> Authorities</h2>
+    <div class="awards-grid">
+      <div class="award-item fade-in"><span class="award-icon">⭐</span><div class="award-name">Five-Star Rating</div><div class="award-org">Forbes Travel Guide</div><div class="award-year">39 Consecutive Years</div></div>
+      <div class="award-item fade-in" data-delay="2"><span class="award-icon">🍽️</span><div class="award-name">Michelin Star</div><div class="award-org">Michelin Guide</div><div class="award-year">Aurum Restaurant</div></div>
+      <div class="award-item fade-in" data-delay="3"><span class="award-icon">🏆</span><div class="award-name">Best Luxury Hotel</div><div class="award-org">World Travel Awards</div><div class="award-year">2022, 2023, 2024</div></div>
+      <div class="award-item fade-in" data-delay="4"><span class="award-icon">💆</span><div class="award-name">Best Urban Spa</div><div class="award-org">Condé Nast Traveller</div><div class="award-year">2023 Readers' Choice</div></div>
+      <div class="award-item fade-in" data-delay="5"><span class="award-icon">🌿</span><div class="award-name">Green Key Certified</div><div class="award-org">Sustainability Award</div><div class="award-year">Since 2018</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></div><p>A sanctuary of refined luxury. Where every stay becomes a timeless memory.</p></div>
+      <div class="footer-col"><h4>Hotel</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="rooms.html">Rooms & Suites</a></li><li><a href="amenities.html">Amenities</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="amenities.html#dining">Fine Dining</a></li><li><a href="amenities.html#spa">Velora Spa</a></li><li><a href="amenities.html#events">Events</a></li><li><a href="amenities.html#pool">Infinity Pool</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+1800835672">+1 800 835 672</a></li><li><a href="mailto:reservations@hotelvelora.com">reservations@hotelvelora.com</a></li><li><a href="booking.html">Make a Reservation</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p><p>Privacy Policy · Terms of Service</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

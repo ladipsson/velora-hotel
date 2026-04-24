@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore Hotel Velora's exquisite rooms and suites — from classic rooms to our iconic penthouse with panoramic city views." />
+  <title>Rooms & Suites — Hotel Velora</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/booking.css" />
+  <style>
+    /* ---- Filter Bar ---- */
+    .filter-bar {
+      background: var(--dark-2);
+      padding: 0 100px;
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      overflow-x: auto;
+    }
+
+    .filter-btn {
+      padding: 22px 0;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+
+    .filter-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active { color: var(--gold); }
+    .filter-btn.active::after, .filter-btn:hover::after { width: 100%; }
+
+    /* ---- Rooms Grid ---- */
+    .rooms-page {
+      padding: 80px 100px 120px;
+    }
+
+    .rooms-full-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .room-full-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(201,169,110,0.06);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .room-full-card:hover {
+      border-color: rgba(201,169,110,0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    .room-full-card-img-wrap {
+      position: relative;
+      height: 320px;
+      overflow: hidden;
+    }
+
+    .room-full-card-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .room-full-card:hover .room-full-card-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .room-tag {
+      position: absolute;
+      top: 20px; left: 20px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.58rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 6px 14px;
+    }
+
+    .room-tag.popular { background: var(--gold); }
+    .room-tag.new { background: var(--white); }
+
+    .room-full-card-body {
+      padding: 36px 36px 30px;
+    }
+
+    .room-full-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .room-full-card-type {
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .room-full-card-name {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .room-price-block { text-align: right; }
+
+    .room-price {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    .room-price-note {
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 1px;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .room-desc {
+      font-size: 0.8rem;
+      color: var(--grey);
+      line-height: 1.9;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
+    }
+
+    .room-specs {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .room-spec {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--light-grey);
+      letter-spacing: 0.5px;
+    }
+
+    .room-spec-icon { font-size: 1rem; }
+
+    .room-amenities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .room-amenity-tag {
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--grey);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 5px 12px;
+      transition: var(--transition-fast);
+    }
+
+    .room-full-card:hover .room-amenity-tag {
+      border-color: rgba(201,169,110,0.15);
+    }
+
+    .room-card-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* ---- Featured Room ---- */
+    .room-full-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .room-full-card.featured .room-full-card-img-wrap {
+      height: 100%;
+      min-height: 460px;
+    }
+
+    .room-full-card.featured .room-full-card-body {
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (max-width: 1200px) {
+      .rooms-page { padding: 60px 60px 100px; }
+      .filter-bar { padding: 0 60px; }
+      .rooms-full-grid { grid-template-columns: 1fr; }
+      .room-full-card.featured { grid-column: auto; display: block; }
+      .room-full-card.featured .room-full-card-img-wrap { height: 320px; }
+    }
+
+    @media (max-width: 768px) {
+      .rooms-page { padding: 40px 24px 80px; }
+      .filter-bar { padding: 0 24px; }
+      .room-full-card-body { padding: 24px; }
+      .room-full-card-header { flex-direction: column; gap: 12px; }
+      .room-price-block { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-name">Velora</span>
+        <span class="logo-tagline">Est. 1924 · Luxury Collection</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rooms.html" class="active">Rooms</a></li>
+        <li><a href="amenities.html">Amenities</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="nav-cta">Reserve</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="index.html">Home</a><a href="rooms.html">Rooms</a><a href="amenities.html">Amenities</a>
+    <a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <a href="booking.html">Reserve</a>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1600&q=80')"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-eyebrow">Our Accommodations</div>
+      <h1>Rooms &<br>Suites</h1>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="filter-btn active" data-filter="all">All Rooms</div>
+    <div class="filter-btn" data-filter="classic">Classic</div>
+    <div class="filter-btn" data-filter="deluxe">Deluxe</div>
+    <div class="filter-btn" data-filter="suite">Suites</div>
+    <div class="filter-btn" data-filter="penthouse">Penthouse</div>
+  </div>
+
+  <!-- Rooms Listing -->
+  <section class="rooms-page">
+    <div class="rooms-full-grid">
+
+      <!-- Featured: Penthouse -->
+      <div class="room-full-card featured fade-in" data-category="penthouse">
+        <div class="room-full-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80" alt="Velora Penthouse" loading="lazy" />
+          <span class="room-tag">Most Popular</span>
+        </div>
+        <div class="room-full-card-body">
+          <div class="room-full-card-type">Penthouse</div>
+          <div class="room-full-card-header">
+            <div class="room-full-card-name">The Velora<br>Penthouse</div>
+            <div class="room-price-block">
+              <div class="room-price">$1,200</div>
+              <span class="room-price-note">per night</span>
+            </div>
+          </div>
+          <p class="room-desc">The crown jewel of Hotel Velora. Spanning two levels with panoramic city views, the Penthouse offers an unrivalled sanctuary of 1,400 sq ft with a private terrace, plunge pool, and dedicated butler service.</p>
+          <div class="room-specs">
+            <div class="room-spec"><span class="room-spec-icon">🛏</span> 2 King Bedrooms</div>
+            <div class="room-spec"><span class="room-spec-icon">📐</span> 1,400 sqft</div>
+            <div class="room-spec"><span class="room-spec-icon">👥</span> Up to 4 Guests</div>
+            <div class="room-spec"><span class="room-spec-icon">🌆</span> Panoramic View</div>
+          </div>
+          <div class="room-amenities">
+            <span class="room-amenity-tag">Private Terrace</span>
+            <span class="room-amenity-tag">Plunge Pool</span>
+            <span class="room-amenity-tag">Butler Service</span>
+            <span class="room-amenity-tag">Marble Bath</span>
+            <span class="room-amenity-tag">Bar & Pantry</span>
+            <span class="room-amenity-tag">Dining Room</span>
+          </div>
+          <div class="room-card-actions">
+            <a href="room-detail.html?id=velora-penthouse" class="btn btn-gold">
+              <span>View Details</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="booking.html?room=velora-penthouse" class="btn btn-outline">Reserve</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Premier Suite -->
+      <div class="room-full-card fade-in" data-delay="2" data-category="suite">
+        <div class="room-full-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80" alt="Premier Suite" loading="lazy" />
+        </div>
+        <div class="room-full-card-body">
+          <div class="room-full-card-type">Suite</div>
+          <div class="room-full-card-header">
+            <div class="room-full-card-name">Premier Suite</div>
+            <div class="room-price-block">
+              <div class="room-price">$520</div>
+              <span class="room-price-note">per night</span>
+            </div>
+          </div>
+          <p class="room-desc">Expansive living and dining spaces combine with a master bedroom suite and cityscape views for an elevated experience of comfort and style.</p>
+          <div class="room-specs">
+            <div class="room-spec"><span class="room-spec-icon">🛏</span> King Bedroom</div>
+            <div class="room-spec"><span class="room-spec-icon">📐</span> 680 sqft</div>
+            <div class="room-spec"><span class="room-spec-icon">👥</span> Up to 3 Guests</div>
+          </div>
+          <div class="room-amenities">
+            <span class="room-amenity-tag">Living Room</span>
+            <span class="room-amenity-tag">Soaking Tub</span>
+            <span class="room-amenity-tag">Walk-in Wardrobe</span>
+            <span class="room-amenity-tag">City View</span>
+          </div>
+          <div class="room-card-actions">
+            <a href="room-detail.html?id=premier-suite" class="btn btn-gold">
+              <span>View Details</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="booking.html?room=premier-suite" class="btn btn-outline">Reserve</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deluxe King -->
+      <div class="room-full-card fade-in" data-delay="3" data-category="deluxe">
+        <div class="room-full-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="Deluxe King Room" loading="lazy" />
+        </div>
+        <div class="room-full-card-body">
+          <div class="room-full-card-type">Deluxe</div>
+          <div class="room-full-card-header">
+            <div class="room-full-card-name">Deluxe King Room</div>
+            <div class="room-price-block">
+              <div class="room-price">$320</div>
+              <span class="room-price-note">per night</span>
+            </div>
+          </div>
+          <p class="room-desc">A masterfully designed retreat offering supreme comfort with a king-sized bed, premium linens, and elegant city views through floor-to-ceiling windows.</p>
+          <div class="room-specs">
+            <div class="room-spec"><span class="room-spec-icon">🛏</span> King Bed</div>
+            <div class="room-spec"><span class="room-spec-icon">📐</span> 450 sqft</div>
+            <div class="room-spec"><span class="room-spec-icon">👥</span> Up to 2 Guests</div>
+          </div>
+          <div class="room-amenities">
+            <span class="room-amenity-tag">City View</span>
+            <span class="room-amenity-tag">Rain Shower</span>
+            <span class="room-amenity-tag">Mini Bar</span>
+            <span class="room-amenity-tag">Work Desk</span>
+          </div>
+          <div class="room-card-actions">
+            <a href="room-detail.html?id=deluxe-king" class="btn btn-gold">
+              <span>View Details</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="booking.html?room=deluxe-king" class="btn btn-outline">Reserve</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Classic Double -->
+      <div class="room-full-card fade-in" data-delay="4" data-category="classic">
+        <div class="room-full-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80" alt="Classic Double Room" loading="lazy" />
+        </div>
+        <div class="room-full-card-body">
+          <div class="room-full-card-type">Classic</div>
+          <div class="room-full-card-header">
+            <div class="room-full-card-name">Classic Double Room</div>
+            <div class="room-price-block">
+              <div class="room-price">$220</div>
+              <span class="room-price-note">per night</span>
+            </div>
+          </div>
+          <p class="room-desc">Timeless in design and generous in comfort, the Classic Double offers everything you need for a perfect Velora stay with garden courtyard views.</p>
+          <div class="room-specs">
+            <div class="room-spec"><span class="room-spec-icon">🛏</span> Double Bed</div>
+            <div class="room-spec"><span class="room-spec-icon">📐</span> 320 sqft</div>
+            <div class="room-spec"><span class="room-spec-icon">👥</span> Up to 2 Guests</div>
+          </div>
+          <div class="room-amenities">
+            <span class="room-amenity-tag">Garden View</span>
+            <span class="room-amenity-tag">Marble Bathroom</span>
+            <span class="room-amenity-tag">Premium Toiletries</span>
+          </div>
+          <div class="room-card-actions">
+            <a href="room-detail.html?id=classic-double" class="btn btn-gold">
+              <span>View Details</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="booking.html?room=classic-double" class="btn btn-outline">Reserve</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></div>
+        <p>A sanctuary of refined luxury in the heart of the city. Where every stay becomes a timeless memory.</p>
+      </div>
+      <div class="footer-col"><h4>Hotel</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="rooms.html">Rooms & Suites</a></li><li><a href="amenities.html">Amenities</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="amenities.html#dining">Fine Dining</a></li><li><a href="amenities.html#spa">Velora Spa</a></li><li><a href="amenities.html#events">Events</a></li><li><a href="amenities.html#pool">Infinity Pool</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+1800835672">+1 800 835 672</a></li><li><a href="mailto:reservations@hotelvelora.com">reservations@hotelvelora.com</a></li><li><a href="booking.html">Make a Reservation</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p>
+      <p>Privacy Policy · Terms of Service</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Filter functionality
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.room-full-card').forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

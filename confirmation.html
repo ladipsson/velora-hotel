@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservation Confirmed — Hotel Velora</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/booking.css" />
+  <style>
+    body { background: var(--black); }
+
+    .confirmation-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 40px 80px;
+    }
+
+    .conf-logo {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .conf-card {
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .conf-icon-wrap {
+      width: 90px; height: 90px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 36px;
+      font-size: 2rem;
+      color: var(--gold);
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .conf-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .conf-card h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .conf-card > p {
+      font-size: 0.85rem;
+      color: var(--grey);
+      line-height: 1.9;
+      margin-bottom: 50px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .conf-ref-box {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid rgba(201,169,110,0.25);
+      padding: 20px 40px;
+      margin-bottom: 50px;
+      background: rgba(201,169,110,0.04);
+    }
+
+    .conf-ref-label {
+      font-size: 0.58rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .conf-ref-number {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 4px;
+    }
+
+    /* ---- Details Grid ---- */
+    .conf-details {
+      background: var(--dark-2);
+      border: 1px solid rgba(201,169,110,0.1);
+      padding: 0;
+      text-align: left;
+      margin-bottom: 40px;
+    }
+
+    .conf-details-header {
+      padding: 20px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.62rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .conf-detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.82rem;
+    }
+
+    .conf-detail-row:last-child { border-bottom: none; }
+    .conf-detail-label { color: var(--grey); letter-spacing: 0.3px; }
+    .conf-detail-value { color: var(--white); font-weight: 400; text-align: right; }
+    .conf-detail-value.gold { color: var(--gold); font-family: var(--font-display); font-size: 1.3rem; }
+
+    /* ---- Next Steps ---- */
+    .conf-next-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(201,169,110,0.06);
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .conf-step {
+      background: var(--dark-2);
+      padding: 30px;
+      transition: var(--transition);
+    }
+
+    .conf-step:hover { background: var(--dark-3); }
+
+    .conf-step-icon { font-size: 1.6rem; margin-bottom: 12px; display: block; }
+    .conf-step-title { font-family: var(--font-display); font-size: 1rem; font-weight: 400; margin-bottom: 6px; }
+    .conf-step-desc { font-size: 0.72rem; color: var(--grey); line-height: 1.7; }
+
+    /* ---- Action Buttons ---- */
+    .conf-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    /* ---- Email Notice ---- */
+    .conf-email-notice {
+      font-size: 0.75rem;
+      color: var(--grey);
+      line-height: 1.8;
+      padding: 20px 30px;
+      border: 1px solid rgba(255,255,255,0.05);
+      background: var(--dark-2);
+      margin-bottom: 40px;
+    }
+
+    .conf-email-notice a { color: var(--gold); }
+
+    /* ---- Footer strip ---- */
+    .conf-footer-strip {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-size: 0.7rem;
+      color: var(--grey);
+      flex-wrap: wrap;
+    }
+
+    .conf-footer-strip a { color: var(--grey); }
+    .conf-footer-strip a:hover { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .conf-next-steps { grid-template-columns: 1fr; }
+      .conf-detail-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .conf-detail-value { text-align: left; }
+      .conf-actions { flex-direction: column; align-items: stretch; }
+      .conf-actions .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confirmation Page -->
+  <div class="confirmation-wrapper">
+
+    <!-- Logo -->
+    <div class="conf-logo">
+      <a href="index.html" class="logo" style="display:flex; flex-direction:column; align-items:center; text-decoration:none;">
+        <span class="logo-name">Velora</span>
+        <span class="logo-tagline">Est. 1924 · Luxury Collection</span>
+      </a>
+    </div>
+
+    <div class="conf-card" id="confirmation-data">
+
+      <div class="conf-icon-wrap">✓</div>
+
+      <div class="conf-eyebrow">Reservation Confirmed</div>
+      <h1>We Look Forward<br>to <em style="font-style:italic; color:var(--gold-light);">Welcoming You</em></h1>
+      <p>Your reservation at Hotel Velora has been received and confirmed. A detailed confirmation email has been sent to your inbox.</p>
+
+      <!-- Booking Reference -->
+      <div class="conf-ref-box">
+        <div class="conf-ref-label">Booking Reference</div>
+        <div class="conf-ref-number" id="conf-ref">VLR-XXXXXXXX</div>
+      </div>
+
+      <!-- Booking Details -->
+      <div class="conf-details">
+        <div class="conf-details-header">Reservation Details</div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Guest Name</span>
+          <span class="conf-detail-value" id="conf-guest">Valued Guest</span>
+        </div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Room</span>
+          <span class="conf-detail-value" id="conf-room">—</span>
+        </div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Check-In</span>
+          <span class="conf-detail-value" id="conf-checkin">—</span>
+        </div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Check-Out</span>
+          <span class="conf-detail-value" id="conf-checkout">—</span>
+        </div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Duration</span>
+          <span class="conf-detail-value" id="conf-nights">—</span>
+        </div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Guests</span>
+          <span class="conf-detail-value" id="conf-guests">—</span>
+        </div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Confirmation Sent To</span>
+          <span class="conf-detail-value" id="conf-email">—</span>
+        </div>
+        <div class="conf-detail-row">
+          <span class="conf-detail-label">Estimated Total</span>
+          <span class="conf-detail-value gold" id="conf-total">—</span>
+        </div>
+      </div>
+
+      <!-- Email Notice -->
+      <div class="conf-email-notice">
+        📧 A confirmation email with full details has been sent to your inbox. If you don't receive it within 15 minutes, please check your spam folder or <a href="contact.html">contact our reservations team</a>.
+      </div>
+
+      <!-- Next Steps -->
+      <div class="conf-next-steps">
+        <div class="conf-step">
+          <span class="conf-step-icon">🕒</span>
+          <div class="conf-step-title">Check-In from 3 PM</div>
+          <p class="conf-step-desc">Early check-in may be available on request. Contact our concierge 24 hours in advance to arrange.</p>
+        </div>
+        <div class="conf-step">
+          <span class="conf-step-icon">🧳</span>
+          <div class="conf-step-title">Luggage Storage</div>
+          <p class="conf-step-desc">Complimentary luggage storage is available before check-in and after check-out on your day of arrival and departure.</p>
+        </div>
+        <div class="conf-step">
+          <span class="conf-step-icon">🚗</span>
+          <div class="conf-step-title">Valet & Transfers</div>
+          <p class="conf-step-desc">Airport transfers and valet parking are available. Contact us at least 24 hours in advance to arrange your arrival experience.</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="conf-actions">
+        <a href="index.html" class="btn btn-gold">
+          <span>Return to Home</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="contact.html" class="btn btn-outline">Contact Concierge</a>
+        <a href="amenities.html" class="btn btn-white">Explore Amenities</a>
+      </div>
+
+      <!-- Footer Strip -->
+      <div class="conf-footer-strip">
+        <a href="index.html">Home</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="amenities.html">Amenities</a>
+        <a href="contact.html">Contact</a>
+        <span>© <span class="current-year"></span> Hotel Velora</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

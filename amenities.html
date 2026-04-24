@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover Hotel Velora's world-class amenities — fine dining, luxury spa, rooftop infinity pool, fitness centre, and exceptional event spaces." />
+  <title>Amenities — Hotel Velora</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Intro Strip ---- */
+    .amenities-intro {
+      padding: 80px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .amenities-intro-text .section-subtitle { margin-top: 20px; }
+
+    /* ---- Category Nav ---- */
+    .amenity-nav {
+      padding: 0 100px;
+      background: var(--dark-2);
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .amenity-nav-item {
+      padding: 22px 32px;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey);
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .amenity-nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .amenity-nav-item:hover, .amenity-nav-item.active { color: var(--gold); }
+    .amenity-nav-item.active::after { width: 100%; }
+
+    /* ---- Feature Block ---- */
+    .feature-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+    .feature-block.reverse { direction: rtl; }
+    .feature-block.reverse > * { direction: ltr; }
+
+    .feature-img-wrap { overflow: hidden; position: relative; }
+    .feature-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .feature-block:hover .feature-img-wrap img { transform: scale(1.04); }
+
+    .feature-content {
+      background: var(--dark-2);
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .feature-number {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 300;
+      color: rgba(201,169,110,0.08);
+      line-height: 1;
+      margin-bottom: -20px;
+    }
+
+    .feature-list {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .feature-list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--light-grey);
+      letter-spacing: 0.5px;
+    }
+    .feature-list-item::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ---- Hours & Info Card ---- */
+    .info-cards {
+      display: flex;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .info-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(201,169,110,0.1);
+      padding: 16px 20px;
+      flex: 1;
+      min-width: 120px;
+    }
+    .info-card-label {
+      font-size: 0.58rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .info-card-value {
+      font-size: 0.82rem;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- Spa Grid ---- */
+    .spa-treatments {
+      padding: 100px 100px;
+      background: var(--dark);
+    }
+    .treatments-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(201,169,110,0.06);
+      margin-top: 60px;
+    }
+    .treatment-item {
+      background: var(--dark);
+      padding: 44px 36px;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .treatment-item:hover {
+      background: var(--dark-2);
+      border-color: rgba(201,169,110,0.15);
+    }
+    .treatment-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .treatment-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .treatment-duration {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .treatment-desc {
+      font-size: 0.76rem;
+      color: var(--grey);
+      line-height: 1.8;
+    }
+
+    /* ---- Dining Section ---- */
+    .dining-section { padding: 0; }
+    .dining-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .dining-venue {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+    }
+    .dining-venue img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .dining-venue:hover img { transform: scale(1.06); }
+    .dining-venue-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.1) 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 36px;
+    }
+    .dining-tag {
+      font-size: 0.58rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .dining-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .dining-hours {
+      font-size: 0.72rem;
+      color: var(--light-grey);
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- Events ---- */
+    .events-section { padding: 100px 100px; }
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+    .event-space-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(201,169,110,0.06);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .event-space-card:hover {
+      border-color: rgba(201,169,110,0.2);
+      transform: translateY(-4px);
+    }
+    .event-space-img { height: 220px; overflow: hidden; }
+    .event-space-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .event-space-card:hover .event-space-img img { transform: scale(1.05); }
+    .event-space-body { padding: 28px; }
+    .event-space-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .event-space-cap {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .event-space-desc {
+      font-size: 0.76rem;
+      color: var(--grey);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 1200px) {
+      .amenities-intro, .events-section, .spa-treatments { padding: 60px 60px; }
+      .amenity-nav { padding: 0 60px; }
+      .feature-block { grid-template-columns: 1fr; }
+      .feature-content { padding: 50px; }
+      .feature-img-wrap { height: 380px; }
+      .treatments-grid { grid-template-columns: repeat(2, 1fr); }
+      .dining-grid { grid-template-columns: 1fr 1fr; }
+      .events-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .amenities-intro { padding: 50px 24px; grid-template-columns: 1fr; gap: 40px; }
+      .amenity-nav { padding: 0 24px; }
+      .feature-content { padding: 36px 24px; }
+      .spa-treatments { padding: 60px 24px; }
+      .treatments-grid { grid-template-columns: 1fr; }
+      .dining-grid { grid-template-columns: 1fr; }
+      .events-section { padding: 60px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="amenities.html" class="active">Amenities</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="nav-cta">Reserve</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a><a href="rooms.html">Rooms</a><a href="amenities.html">Amenities</a>
+    <a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <a href="booking.html">Reserve</a>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=80')"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-eyebrow">World-Class Facilities</div>
+      <h1>Amenities &<br>Experiences</h1>
+    </div>
+  </div>
+
+  <!-- Category Nav -->
+  <div class="amenity-nav">
+    <div class="amenity-nav-item active">All</div>
+    <div class="amenity-nav-item">Dining</div>
+    <div class="amenity-nav-item">Spa & Wellness</div>
+    <div class="amenity-nav-item">Pool & Fitness</div>
+    <div class="amenity-nav-item">Events</div>
+    <div class="amenity-nav-item">Concierge</div>
+  </div>
+
+  <!-- Intro -->
+  <section class="amenities-intro">
+    <div class="fade-in-left">
+      <div class="section-eyebrow">The Velora Experience</div>
+      <h2 class="section-title">Every Detail,<br><em>Perfected</em> for You</h2>
+      <div class="gold-line"></div>
+      <p class="section-subtitle">At Hotel Velora, amenities aren't afterthoughts — they are the foundation of your stay. From our Michelin-starred restaurant to our rooftop infinity pool, every facility is crafted to exceed your every expectation.</p>
+    </div>
+    <div class="fade-in-right" style="display:grid; grid-template-columns:1fr 1fr; gap:2px;">
+      <div style="background:var(--dark-2); padding:40px; text-align:center;">
+        <div style="font-family:var(--font-display); font-size:3rem; color:var(--gold); font-weight:300;">14</div>
+        <div style="font-size:0.62rem; letter-spacing:3px; color:var(--grey); text-transform:uppercase; margin-top:8px;">Facilities</div>
+      </div>
+      <div style="background:var(--dark-3); padding:40px; text-align:center;">
+        <div style="font-family:var(--font-display); font-size:3rem; color:var(--gold); font-weight:300;">3</div>
+        <div style="font-size:0.62rem; letter-spacing:3px; color:var(--grey); text-transform:uppercase; margin-top:8px;">Restaurants</div>
+      </div>
+      <div style="background:var(--dark-3); padding:40px; text-align:center;">
+        <div style="font-family:var(--font-display); font-size:3rem; color:var(--gold); font-weight:300;">7</div>
+        <div style="font-size:0.62rem; letter-spacing:3px; color:var(--grey); text-transform:uppercase; margin-top:8px;">Event Spaces</div>
+      </div>
+      <div style="background:var(--dark-2); padding:40px; text-align:center;">
+        <div style="font-family:var(--font-display); font-size:3rem; color:var(--gold); font-weight:300;">24</div>
+        <div style="font-size:0.62rem; letter-spacing:3px; color:var(--grey); text-transform:uppercase; margin-top:8px;">Hour Service</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Dining -->
+  <section id="dining">
+    <div style="padding:80px 100px 60px;" class="fade-in">
+      <div class="section-eyebrow">Culinary Excellence</div>
+      <h2 class="section-title">A Journey of<br><em>Flavour</em> & Craft</h2>
+    </div>
+    <div class="dining-grid dining-section">
+      <div class="dining-venue">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Aurum Restaurant" loading="lazy" />
+        <div class="dining-venue-overlay">
+          <div class="dining-tag">★ Michelin Star</div>
+          <div class="dining-name">Aurum Restaurant</div>
+          <div class="dining-hours">Dinner: 6:30 PM – 11:00 PM · Closed Sundays</div>
+        </div>
+      </div>
+      <div class="dining-venue">
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=700&q=80" alt="The Velora Bar" loading="lazy" />
+        <div class="dining-venue-overlay">
+          <div class="dining-tag">Cocktail Lounge</div>
+          <div class="dining-name">The Velora Bar</div>
+          <div class="dining-hours">Daily: 12:00 PM – 2:00 AM</div>
+        </div>
+      </div>
+      <div class="dining-venue">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700&q=80" alt="The Terrace" loading="lazy" />
+        <div class="dining-venue-overlay">
+          <div class="dining-tag">Rooftop Dining</div>
+          <div class="dining-name">The Terrace</div>
+          <div class="dining-hours">Brunch & Dinner · Open Daily</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top:0;"></div>
+
+  <!-- Spa -->
+  <div class="feature-block" id="spa">
+    <div class="feature-img-wrap">
+      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80" alt="Velora Spa" loading="lazy" />
+    </div>
+    <div class="feature-content fade-in-right">
+      <div class="feature-number">02</div>
+      <div class="section-eyebrow">Spa & Wellness</div>
+      <h2 class="section-title">The Velora <em>Spa</em></h2>
+      <div class="gold-line"></div>
+      <p class="section-subtitle">A 3,000 sqft sanctuary dedicated to the art of restoration. Our spa blends ancient healing traditions with contemporary wellness science for an experience unlike any other.</p>
+      <div class="feature-list">
+        <div class="feature-list-item">Signature Velora Body Ritual (90 min)</div>
+        <div class="feature-list-item">Couples' Retreat Suite</div>
+        <div class="feature-list-item">Hot Stone Therapy</div>
+        <div class="feature-list-item">Hydrotherapy Pools</div>
+        <div class="feature-list-item">Aromatherapy & Deep Tissue Massage</div>
+        <div class="feature-list-item">Personalised Facial Treatments</div>
+      </div>
+      <div class="info-cards">
+        <div class="info-card"><div class="info-card-label">Hours</div><div class="info-card-value">7AM – 10PM</div></div>
+        <div class="info-card"><div class="info-card-label">Booking</div><div class="info-card-value">Required</div></div>
+        <div class="info-card"><div class="info-card-label">Access</div><div class="info-card-value">Guests Only</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pool & Fitness -->
+  <div class="feature-block reverse" id="pool">
+    <div class="feature-img-wrap">
+      <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80" alt="Infinity Pool" loading="lazy" />
+    </div>
+    <div class="feature-content fade-in-left">
+      <div class="feature-number">03</div>
+      <div class="section-eyebrow">Pool & Fitness</div>
+      <h2 class="section-title">Above the City,<br><em>Above</em> All Else</h2>
+      <div class="gold-line"></div>
+      <p class="section-subtitle">Our rooftop infinity pool offers panoramic city views from the 22nd floor — the perfect complement to our fully-equipped fitness centre and private yoga studio.</p>
+      <div class="feature-list">
+        <div class="feature-list-item">Rooftop Infinity Pool (22nd Floor)</div>
+        <div class="feature-list-item">Heated Jacuzzi & Sun Terrace</div>
+        <div class="feature-list-item">Poolside Bar Service</div>
+        <div class="feature-list-item">State-of-the-Art Fitness Centre</div>
+        <div class="feature-list-item">Yoga & Pilates Studio</div>
+        <div class="feature-list-item">Personal Training (on request)</div>
+      </div>
+      <div class="info-cards">
+        <div class="info-card"><div class="info-card-label">Pool Hours</div><div class="info-card-value">6AM – 11PM</div></div>
+        <div class="info-card"><div class="info-card-label">Gym Hours</div><div class="info-card-value">24 Hours</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spa Treatments -->
+  <section class="spa-treatments" id="treatments">
+    <div class="text-center fade-in">
+      <div class="section-eyebrow centered">Signature Treatments</div>
+      <h2 class="section-title">Curated <em>Rituals</em> of Wellness</h2>
+      <div class="gold-line centered"></div>
+    </div>
+    <div class="treatments-grid">
+      <div class="treatment-item fade-in">
+        <span class="treatment-icon">🌿</span>
+        <div class="treatment-name">Velora Signature Ritual</div>
+        <div class="treatment-duration">90 Minutes · from $220</div>
+        <p class="treatment-desc">Our most celebrated treatment. A full-body journey incorporating hot stone placement, aromatic oils, and deep tissue techniques for complete restoration.</p>
+      </div>
+      <div class="treatment-item fade-in" data-delay="2">
+        <span class="treatment-icon">💧</span>
+        <div class="treatment-name">Aqua Thermal Journey</div>
+        <div class="treatment-duration">120 Minutes · from $280</div>
+        <p class="treatment-desc">A transformative water-based experience using thermal pools at varying temperatures, designed to detoxify, energise, and deeply relax the body.</p>
+      </div>
+      <div class="treatment-item fade-in" data-delay="3">
+        <span class="treatment-icon">🌸</span>
+        <div class="treatment-name">Luminous Skin Facial</div>
+        <div class="treatment-duration">60 Minutes · from $160</div>
+        <p class="treatment-desc">A luxurious facial using La Mer and Sisley products, tailored to your skin's unique needs for a visibly radiant, refined complexion.</p>
+      </div>
+      <div class="treatment-item fade-in" data-delay="4">
+        <span class="treatment-icon">👫</span>
+        <div class="treatment-name">Couples' Sanctuary</div>
+        <div class="treatment-duration">120 Minutes · from $480</div>
+        <p class="treatment-desc">An intimate retreat for two in our dedicated couples' suite. Includes a shared bath ritual, side-by-side massages, and a private champagne toast.</p>
+      </div>
+      <div class="treatment-item fade-in" data-delay="5">
+        <span class="treatment-icon">🪨</span>
+        <div class="treatment-name">Deep Relief Therapy</div>
+        <div class="treatment-duration">75 Minutes · from $190</div>
+        <p class="treatment-desc">Targeted deep tissue and trigger point work to release chronic muscle tension, improve mobility, and restore physical equilibrium.</p>
+      </div>
+      <div class="treatment-item fade-in" data-delay="6">
+        <span class="treatment-icon">🧘</span>
+        <div class="treatment-name">Mindful Restore Session</div>
+        <div class="treatment-duration">60 Minutes · from $140</div>
+        <p class="treatment-desc">A guided mind-body session combining breathwork, gentle stretching, and relaxation techniques to restore balance and clarity of mind.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="events-section" id="events">
+    <div class="fade-in">
+      <div class="section-eyebrow">Meetings & Events</div>
+      <h2 class="section-title">Spaces That <em>Inspire</em><br>& Impress</h2>
+      <div class="gold-line"></div>
+      <p class="section-subtitle">From boardroom to ballroom, our seven versatile event spaces are fully equipped with cutting-edge audiovisual technology and supported by a dedicated events team.</p>
+    </div>
+    <div class="events-grid">
+      <div class="event-space-card fade-in" data-delay="2">
+        <div class="event-space-img"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=700&q=80" alt="Grand Ballroom" loading="lazy" /></div>
+        <div class="event-space-body">
+          <div class="event-space-name">The Grand Ballroom</div>
+          <div class="event-space-cap">Up to 600 guests · 8,000 sqft</div>
+          <p class="event-space-desc">Our crown jewel event space. A breathtaking ballroom with original 1924 chandeliers, gilded ceilings, and a built-in stage — perfect for galas, weddings, and large-scale conferences.</p>
+        </div>
+      </div>
+      <div class="event-space-card fade-in" data-delay="3">
+        <div class="event-space-img"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=700&q=80" alt="Boardroom" loading="lazy" /></div>
+        <div class="event-space-body">
+          <div class="event-space-name">Executive Boardroom</div>
+          <div class="event-space-cap">Up to 18 guests · 800 sqft</div>
+          <p class="event-space-desc">An intimate, technologically advanced boardroom with floor-to-ceiling windows, a premium audiovisual system, and bespoke catering options for the most discerning executive meetings.</p>
+        </div>
+      </div>
+      <div class="event-space-card fade-in" data-delay="4">
+        <div class="event-space-img"><img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=700&q=80" alt="Velora Terrace" loading="lazy" /></div>
+        <div class="event-space-body">
+          <div class="event-space-name">Velora Rooftop Terrace</div>
+          <div class="event-space-cap">Up to 150 guests · Outdoor</div>
+          <p class="event-space-desc">An unparalleled outdoor venue with panoramic cityscape views. Ideal for cocktail receptions, product launches, and intimate celebration dinners under the stars.</p>
+        </div>
+      </div>
+      <div class="event-space-card fade-in" data-delay="5">
+        <div class="event-space-img"><img src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=700&q=80" alt="Garden Pavilion" loading="lazy" /></div>
+        <div class="event-space-body">
+          <div class="event-space-name">The Garden Pavilion</div>
+          <div class="event-space-cap">Up to 80 guests · Semi-outdoor</div>
+          <p class="event-space-desc">A tranquil semi-outdoor pavilion surrounded by manicured gardens. A favourite for intimate weddings, private lunches, and exclusive brand activations.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:50px;">
+      <a href="contact.html" class="btn btn-outline">Enquire About Events</a>
+    </div>
+  </section>
+
+  <!-- Concierge -->
+  <div class="feature-block" id="concierge" style="background: var(--dark);">
+    <div class="feature-img-wrap">
+      <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=900&q=80" alt="Concierge Service" loading="lazy" />
+    </div>
+    <div class="feature-content fade-in-right">
+      <div class="feature-number">06</div>
+      <div class="section-eyebrow">Personalised Service</div>
+      <h2 class="section-title">Your Wishes,<br><em>Our</em> Command</h2>
+      <div class="gold-line"></div>
+      <p class="section-subtitle">Our legendary concierge team is available around the clock to fulfil any request — from securing reservations at the city's finest restaurants to arranging private helicopter transfers.</p>
+      <div class="feature-list">
+        <div class="feature-list-item">24-Hour Concierge Desk</div>
+        <div class="feature-list-item">Airport Limousine Transfers</div>
+        <div class="feature-list-item">Private Dining & Restaurant Reservations</div>
+        <div class="feature-list-item">Theatre, Opera & Event Ticketing</div>
+        <div class="feature-list-item">Personal Shopping Assistance</div>
+        <div class="feature-list-item">Bespoke City Experiences & Tours</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></div><p>A sanctuary of refined luxury. Where every stay becomes a timeless memory.</p></div>
+      <div class="footer-col"><h4>Hotel</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="rooms.html">Rooms & Suites</a></li><li><a href="amenities.html">Amenities</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="amenities.html#dining">Fine Dining</a></li><li><a href="amenities.html#spa">Velora Spa</a></li><li><a href="amenities.html#events">Events</a></li><li><a href="amenities.html#pool">Infinity Pool</a></li><li><a href="amenities.html#fitness">Fitness</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+1800835672">+1 800 835 672</a></li><li><a href="mailto:reservations@hotelvelora.com">reservations@hotelvelora.com</a></li><li><a href="booking.html">Make a Reservation</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p><p>Privacy Policy · Terms of Service</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('.amenity-nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.amenity-nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
