@@ -547,8 +547,40 @@
     }
 
     @media (max-width: 768px) {
-      .hero-content { padding: 0 24px; }
-      .hero-booking { padding: 0 24px; transform: none; position: relative; margin-top: 40px; }
+      .hero-content { 
+        padding: 1rem  0 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+      }
+      .hero-desc {
+        text-align: center;
+        color: var(--white);
+        padding: 0 5px;
+        font-weight: 500;
+      }
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+      }
+      .amenity-desc {
+        color: var(--white);
+      }
+      .footer-grid {
+        text-align: center;
+      }
+      .social-links {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      .footer-desc-main {
+        margin: 0 auto;
+      }
+      
+      /* .hero-booking { padding: 0 24px; transform: none; position: relative; margin-top: 40px; } */
       .stats-section, .about-section, .rooms-section, .amenities-section, .testimonials-section, .cta-section { padding: 60px 24px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .rooms-grid { grid-template-columns: 1fr; }
@@ -614,7 +646,7 @@
     </div>
 
     <!-- Booking Bar -->
-    <div class="hero-booking">
+    <!-- <div class="hero-booking">
       <div class="booking-bar" id="homepage-booking">
         <div class="booking-field">
           <label for="hp-checkin">Check In</label>
@@ -648,7 +680,7 @@
           <span>Check Availability</span>
         </button>
       </div>
-    </div>
+    </div> -->
 
     <!-- Scroll Indicator -->
     <div class="hero-scroll">
@@ -875,7 +907,7 @@
           <span class="logo-name">Velora</span>
           <span class="logo-tagline">Est. 1924 · Luxury Collection</span>
         </div>
-        <p>A sanctuary of refined luxury in the heart of the city. Where every stay becomes a timeless memory.</p>
+        <p class="footer-desc-main">A sanctuary of refined luxury in the heart of the city. Where every stay becomes a timeless memory.</p>
         <div class="social-links" style="margin-top:24px;">
           <a href="#" aria-label="Instagram">Ig</a>
           <a href="#" aria-label="Facebook">Fb</a>
@@ -914,7 +946,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p>
+      <p>© <span class="current-year"></span> Hotel Velora. All rights reserved.<br> Developed by <a href="https://craftsynq.com/">Craftsynq</a></p>
       <p>Privacy Policy · Terms of Service · Cookie Policy</p>
     </div>
   </footer>

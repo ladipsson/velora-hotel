@@ -208,7 +208,7 @@ input, select, textarea { font-family: var(--font-body); }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 15px;
 }
 
 .mobile-menu.open { display: flex; }
@@ -479,7 +479,7 @@ footer {
 
 .footer-brand p {
   font-size: 0.8rem;
-  color: var(--grey);
+  color: var(--white);
   line-height: 1.9;
   margin-top: 20px;
   max-width: 300px;
@@ -500,7 +500,7 @@ footer {
 
 .footer-col ul li a {
   font-size: 0.8rem;
-  color: var(--grey);
+  color: var(--white);
   transition: var(--transition-fast);
   letter-spacing: 0.5px;
 }
@@ -517,7 +517,7 @@ footer {
 
 .footer-bottom p {
   font-size: 0.72rem;
-  color: var(--mid);
+  color: var(--white);
   letter-spacing: 1px;
 }
 
@@ -533,7 +533,7 @@ footer {
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  color: var(--grey);
+  color: var(--white);
   transition: var(--transition-fast);
   letter-spacing: 0;
 }
