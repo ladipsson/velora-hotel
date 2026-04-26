@@ -637,6 +637,11 @@ footer {
 
 @media (max-width: 768px) {
   :root { --nav-height: 70px; }
+  body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0 auto;
+  }
   .section { padding: 80px 24px; }
   .section-sm { padding: 50px 24px; }
   .navbar { padding: 0 24px; }
