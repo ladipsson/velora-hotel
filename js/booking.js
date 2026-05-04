@@ -1,5 +1,5 @@
 /* ============================================
-   HOTEL VELORA — Booking System JavaScript
+   HOTEL Lasgidi — Booking System JavaScript
    ============================================ */
 
 (function () {
@@ -26,8 +26,8 @@
       features: ["King Bed", "Living Room", "680 sqft"],
     },
     {
-      id: "velora-penthouse",
-      name: "Velora Penthouse",
+      id: "Lasgidi-penthouse",
+      name: "Lasgidi Penthouse",
       type: "Penthouse",
       pricePerNight: 1200,
       maxGuests: 4,
@@ -459,7 +459,7 @@
 
     // Store in sessionStorage for confirmation page
     sessionStorage.setItem(
-      "velora_booking",
+      "Lasgidi_booking",
       JSON.stringify({
         ref: state.bookingRef,
         room: state.selectedRoom?.name || "—",
@@ -566,7 +566,7 @@
     const confPage = document.getElementById("confirmation-data");
     if (!confPage) return;
 
-    const booking = JSON.parse(sessionStorage.getItem("velora_booking") || "null");
+    const booking = JSON.parse(sessionStorage.getItem("Lasgidi_booking") || "null");
     if (!booking) {
       confPage.innerHTML = "<p>No booking data found. <a href='booking.html'>Make a reservation</a></p>";
       return;

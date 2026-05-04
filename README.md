@@ -1,4 +1,4 @@
-# Hotel Velora — Luxury Hotel Website
+# Hotel Lasgidi — Luxury Hotel Website
 
 A complete, production-ready multi-page hotel website built with pure HTML, CSS, and vanilla JavaScript. Dark luxury aesthetic with gold accents, cinematic imagery, and a full booking system.
 
@@ -7,7 +7,7 @@ A complete, production-ready multi-page hotel website built with pure HTML, CSS,
 ## 📁 Project Structure
 
 ```
-hotel-velora/
+hotel-Lasgidi/
 ├── index.html              # Homepage — hero, booking bar, rooms preview, testimonials
 ├── rooms.html              # Rooms listing with filter by category
 ├── room-detail.html        # Dynamic room detail page (loads from URL param)
@@ -139,7 +139,7 @@ async function handleSubmit() {
   });
   const data = await response.json();
   state.bookingRef = data.bookingRef;
-  sessionStorage.setItem('velora_booking', JSON.stringify({ ... }));
+  sessionStorage.setItem('Lasgidi_booking', JSON.stringify({ ... }));
   window.location.href = 'confirmation.html';
 }
 ```
@@ -197,7 +197,7 @@ All images are served from Unsplash CDN (free for development). Replace with lic
 
 ## 📄 License
 
-Built for Hotel Velora. All rights reserved.
+Built for Hotel Lasgidi. All rights reserved.
 
 ---
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Reserve your stay at Hotel Velora — select your dates, choose your room, and personalise your experience." />
-  <title>Reserve — Hotel Velora</title>
+  <meta name="description" content="Reserve your stay at Hotel Lasgidi — select your dates, choose your room, and personalise your experience." />
+  <title>Reserve — Hotel Lasgidi</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/booking.css" />
   <style>
@@ -33,11 +33,12 @@
     }
 
     @media (max-width: 768px) {
-      body {
+      /* body {
         width: 100%;
+        max-width: 500px;
         overflow-x: hidden;
         margin: 0 auto;
-      }
+      } */
       footer {
         text-align: center;
         display: flex;
@@ -46,7 +47,13 @@
         align-items: center;
       }
       .booking-page-header { padding: calc(var(--nav-height) + 20px) 24px 24px; }
-      .booking-page { padding: 30px 24px 60px; }
+      .booking-page { 
+        padding: 30px 24px 60px;
+        width: 100%;
+        max-width: 500px;
+        /* overflow-x: hidden; */
+        margin: 0 auto; 
+      }
     }
   </style>
 </head>
@@ -54,8 +61,8 @@
 
   <nav class="navbar scrolled">
     <div class="navbar-inner">
-      <a href="index.html" class="logo"><span class="logo-name">Velora</span>
-        <!-- <span class="logo-tagline">Est. 1924 · Luxury Collection</span> -->
+      <a href="index.html" class="logo">
+        <img class="lasgidi-logo" src="images/hotel_lasgidi_transparent.png" alt="" srcset="">
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -147,7 +154,7 @@
             <div class="form-group">
               <label for="promo-code">Promo / Member Code <span style="font-size:0.6rem; color:var(--grey); text-transform:none; letter-spacing:0;">(optional)</span></label>
               <input type="text" id="promo-code" placeholder="Enter code if you have one" />
-              <div class="form-hint">Velora Prestige members receive 15% off all room rates.</div>
+              <div class="form-hint">Lasgidi Prestige members receive 15% off all room rates.</div>
             </div>
 
             <!-- Availability Info -->
@@ -155,7 +162,7 @@
               <div style="color:var(--gold); font-size:1.2rem; flex-shrink:0; margin-top:2px;">ℹ</div>
               <div>
                 <div style="font-size:0.72rem; color:var(--light-grey); margin-bottom:4px; letter-spacing:0.5px;">Flexible Cancellation Policy</div>
-                <div style="font-size:0.75rem; color:var(--grey); line-height:1.7;">Cancel free of charge up to 48 hours before your scheduled arrival. Changes to your booking can be made at any time via reservations@hotelvelora.com or by calling +1 800 835 672.</div>
+                <div style="font-size:0.75rem; color:var(--grey); line-height:1.7;">Cancel free of charge up to 48 hours before your scheduled arrival. Changes to your booking can be made at any time via reservations@hotelLasgidi.com or by calling +1 800 835 672.</div>
               </div>
             </div>
           </div>
@@ -198,15 +205,15 @@
         <div class="form-panel" id="panel-3">
           <div style="margin-top: 40px;">
             <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 6px;">Personalise Your Stay</h3>
-            <p style="font-size: 0.78rem; color: var(--grey); margin-bottom: 36px;">Enhance your Velora experience with our curated selection of extras. All additions can also be arranged on arrival with our concierge.</p>
+            <p style="font-size: 0.78rem; color: var(--grey); margin-bottom: 36px;">Enhance your Lasgidi experience with our curated selection of extras. All additions can also be arranged on arrival with our concierge.</p>
 
             <div class="extras-grid" id="extras-grid">
               <!-- Populated by booking.js -->
             </div>
 
             <div style="margin-top: 30px; padding: 20px 24px; background: var(--dark-2); border-left: 2px solid var(--gold);">
-              <div style="font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; font-weight: 500;">Velora Bespoke</div>
-              <p style="font-size: 0.78rem; color: var(--grey); line-height: 1.8; margin: 0;">Looking for something not listed? Our concierge team can arrange virtually anything — from in-suite private dining to personalised city tours. Contact us at <a href="mailto:concierge@hotelvelora.com" style="color:var(--gold);">concierge@hotelvelora.com</a> to discuss your bespoke request.</p>
+              <div style="font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; font-weight: 500;">Lasgidi Bespoke</div>
+              <p style="font-size: 0.78rem; color: var(--grey); line-height: 1.8; margin: 0;">Looking for something not listed? Our concierge team can arrange virtually anything — from in-suite private dining to personalised city tours. Contact us at <a href="mailto:concierge@hotelLasgidi.com" style="color:var(--gold);">concierge@hotelLasgidi.com</a> to discuss your bespoke request.</p>
             </div>
           </div>
 
@@ -279,7 +286,7 @@
             <div style="display:flex; gap:14px; align-items:flex-start; padding:20px; background:var(--dark-2); border:1px solid rgba(255,255,255,0.05); margin-top:10px;">
               <input type="checkbox" id="terms" style="margin-top:3px; accent-color:var(--gold); width:16px; height:16px; flex-shrink:0;" />
               <label for="terms" style="font-size:0.75rem; color:var(--grey); line-height:1.7; cursor:pointer;">
-                I agree to Hotel Velora's <a href="#" style="color:var(--gold);">Terms & Conditions</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>. I understand that no payment is required at this time, and that my reservation is subject to availability confirmation.
+                I agree to Hotel Lasgidi's <a href="#" style="color:var(--gold);">Terms & Conditions</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>. I understand that no payment is required at this time, and that my reservation is subject to availability confirmation.
               </label>
             </div>
 
@@ -369,8 +376,8 @@
           <a href="tel:+1800835672" style="font-size:0.8rem; color:var(--white); display:flex; align-items:center; gap:8px;">
             <span style="color:var(--gold);">📞</span> +1 800 835 672
           </a>
-          <a href="mailto:reservations@hotelvelora.com" style="font-size:0.75rem; color:var(--grey); display:block; margin-top:8px;">
-            reservations@hotelvelora.com
+          <a href="mailto:reservations@hotelLasgidi.com" style="font-size:0.75rem; color:var(--grey); display:block; margin-top:8px;">
+            reservations@hotelLasgidi.com
           </a>
         </div>
       </div>
@@ -380,12 +387,12 @@
 
   <footer>
     <div class="footer-grid">
-      <div class="footer-brand"><div class="logo"><span class="logo-name">Velora</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></div><p>A sanctuary of refined luxury. Where every stay becomes a timeless memory.</p></div>
+      <div class="footer-brand"><div class="logo"><span class="logo-name">Lasgidi</span><span class="logo-tagline">Est. 1924 · Luxury Collection</span></div><p>A sanctuary of refined luxury. Where every stay becomes a timeless memory.</p></div>
       <div class="footer-col"><h4>Hotel</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="rooms.html">Rooms & Suites</a></li><li><a href="amenities.html">Amenities</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
-      <div class="footer-col"><h4>Services</h4><ul><li><a href="amenities.html#dining">Fine Dining</a></li><li><a href="amenities.html#spa">Velora Spa</a></li><li><a href="amenities.html#events">Events</a></li></ul></div>
-      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+1800835672">+1 800 835 672</a></li><li><a href="mailto:reservations@hotelvelora.com">reservations@hotelvelora.com</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="amenities.html#dining">Fine Dining</a></li><li><a href="amenities.html#spa">Lasgidi Spa</a></li><li><a href="amenities.html#events">Events</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+1800835672">+1 800 835 672</a></li><li><a href="mailto:reservations@hotelLasgidi.com">reservations@hotelLasgidi.com</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><p>© <span class="current-year"></span> Hotel Velora. All rights reserved.</p></div>
+    <div class="footer-bottom"><p>© <span class="current-year"></span> Hotel Lasgidi. All rights reserved.</p></div>
   </footer>
 
   <script src="js/main.js"></script>

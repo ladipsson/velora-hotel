@@ -1,5 +1,5 @@
 /* ============================================
-   HOTEL VELORA — Main JavaScript
+   HOTEL Lasgidi — Main JavaScript
    ============================================ */
 
 (function () {
